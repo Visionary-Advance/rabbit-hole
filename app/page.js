@@ -103,7 +103,7 @@ export default function Home() {
               </svg>
               <span className="text-black-400">(0)</span>
             </div>
-            <button className="bg-primary-green text-black-900 px-4 py-2.5 rounded-full font-medium text-sm hover:bg-opacity-90 transition-colors">
+            <button className="bg-primary-green text-black-900 h-10 px-4 rounded-full font-medium text-sm hover:bg-opacity-90 transition-colors">
               Contact Us
             </button>
           </div>
@@ -135,21 +135,21 @@ export default function Home() {
                 alt="Person enjoying bubble tea"
                 width={112}
                 height={63}
-                className="absolute -bottom-8 left-0 rounded-full border border-primary-green w-20 h-11 md:w-28 md:h-16 object-cover"
+                className="hidden md:block absolute -bottom-8 left-0 rounded-full border border-primary-green w-28 h-16 object-cover"
               />
               <Image
                 src="https://api.builder.io/api/v1/image/assets/TEMP/7d659ad0ab2d623fcb16c0d3a2a9b548b47a7652?width=248"
                 alt="Person with bubble tea"
                 width={124}
                 height={71}
-                className="absolute -top-8 right-8 md:right-16 rounded-full border border-primary-green w-24 h-14 md:w-32 md:h-18 object-cover"
+                className="hidden lg:block absolute -top-6 right-6 lg:-top-8 lg:right-16 rounded-full border border-primary-green w-32 h-20 object-cover"
               />
               <Image
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f7956ba55688d67d0ea53b3256995107fcd577be?width=212"
                 alt="Bubble tea decoration"
                 width={106}
                 height={106}
-                className="absolute bottom-16 right-0 w-20 h-20 md:w-26 md:h-26"
+                className="hidden lg:block absolute bottom-12 right-0 w-24 h-24"
               />
             </div>
             
@@ -158,10 +158,10 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5">
-              <button className="bg-primary-green text-black-900 px-6 py-3.5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
+              <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
                 Order Online
               </button>
-              <button className="border border-primary-green text-primary-green px-6 py-3.5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
+              <button className="border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
                 View Menu
               </button>
             </div>
@@ -196,7 +196,7 @@ export default function Home() {
               </div>
               <h3 className="text-white text-xl md:text-2xl font-medium">Experience</h3>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 flex items-baseline gap-1">
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">8 Years</span>
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
             </div>
@@ -223,7 +223,7 @@ export default function Home() {
               </div>
               <h3 className="text-white text-xl md:text-2xl font-medium">Served</h3>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 flex items-baseline gap-1">
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">21k</span>
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
             </div>
@@ -249,7 +249,7 @@ export default function Home() {
               </div>
               <h3 className="text-white text-xl md:text-2xl font-medium">Item</h3>
             </div>
-            <div className="mb-3">
+            <div className="mb-3 flex items-baseline gap-1">
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">30</span>
               <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
             </div>
