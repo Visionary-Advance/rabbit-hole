@@ -110,12 +110,12 @@ export default function Home() {
         </nav>
 
         {/* Hero Background Image */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute w-11/12 left-1/2 -translate-x-1/2 inset-0 z-0">
           <Image
             src="https://api.builder.io/api/v1/image/assets/TEMP/51af8464867a420b04c85c9ef60d048c9ef62263?width=2720"
             alt="Bubble tea background"
             fill
-            className="object-cover rounded-b-3xl md:rounded-b-[2rem]"
+            className="object-cover rounded-3xl md:rounded-[2rem]"
             style={{ objectPosition: 'center' }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 rounded-b-3xl md:rounded-b-[2rem]"></div>
@@ -124,32 +124,56 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 flex-1 flex items-center px-6 md:px-16 lg:px-32 xl:px-36 pt-12 pb-20">
           <div className="max-w-xl">
-            <div className="relative mb-6">
-              <h1 className="font-quicksand font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight text-white mb-6">
-                Eugene's Bubble Tea Spot
+            <div className="relative mb-6 h-80">
+              {/* Main title - first two lines */}
+              <h1 className="font-quicksand font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
+                Eugene's<br />
+                Bubble Tea
               </h1>
               
-              {/* Decorative Images */}
+              {/* "Spot" positioned absolutely - this is how drag-and-drop builders work */}
+              <div className="absolute font-quicksand font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white" 
+                   style={{ 
+                     top: '140px', 
+                     left: '280px',
+                     transform: 'translateX(-50%) translateY(-50%)' 
+                   }}>
+                Spot
+              </div>
+              
+              {/* Decorative Images - positioned absolutely like drag-and-drop */}
               <Image
                 src="https://api.builder.io/api/v1/image/assets/TEMP/b6056ef1192c4329a92fc3365e4a81f7345cf294?width=224"
                 alt="Person enjoying bubble tea"
                 width={112}
                 height={63}
-                className="hidden md:block absolute -bottom-8 left-0 rounded-full border border-primary-green w-28 h-16 object-cover"
+                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover"
+                style={{ 
+                  top: '180px', 
+                  left: '140px' 
+                }}
               />
               <Image
                 src="https://api.builder.io/api/v1/image/assets/TEMP/7d659ad0ab2d623fcb16c0d3a2a9b548b47a7652?width=248"
                 alt="Person with bubble tea"
                 width={124}
                 height={71}
-                className="hidden lg:block absolute -top-6 right-6 lg:-top-8 lg:right-16 rounded-full border border-primary-green w-32 h-20 object-cover"
+                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover"
+                style={{ 
+                  top: '60px', 
+                  right: '100px' 
+                }}
               />
               <Image
                 src="https://api.builder.io/api/v1/image/assets/TEMP/f7956ba55688d67d0ea53b3256995107fcd577be?width=212"
                 alt="Bubble tea decoration"
                 width={106}
                 height={106}
-                className="hidden lg:block absolute bottom-12 right-0 w-24 h-24"
+                className="absolute w-20 h-20 md:w-24 md:h-24"
+                style={{ 
+                  top: '200px', 
+                  right: '50px' 
+                }}
               />
             </div>
             
