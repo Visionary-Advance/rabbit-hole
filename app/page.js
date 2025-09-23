@@ -110,7 +110,7 @@ export default function Home() {
         </nav>
 
         {/* Hero Background Image */}
-        <div className="absolute w-11/12 left-1/2 -translate-x-1/2 inset-0 z-0">
+        <div className="absolute w-[97%] left-1/2 -translate-x-1/2 inset-0 z-0">
           <Image
             src="https://api.builder.io/api/v1/image/assets/TEMP/51af8464867a420b04c85c9ef60d048c9ef62263?width=2720"
             alt="Bubble tea background"
@@ -118,79 +118,55 @@ export default function Home() {
             className="object-cover rounded-3xl md:rounded-[2rem]"
             style={{ objectPosition: 'center' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 rounded-b-3xl md:rounded-b-[2rem]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 rounded-3xl md:rounded-[2rem]"></div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 flex-1 flex items-center px-6 md:px-16 lg:px-32 xl:px-36 pt-12 pb-20">
-          <div className="max-w-xl">
-            <div className="relative mb-6 h-80">
-              {/* Main title - first two lines */}
-              <h1 className="font-quicksand font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
-                Eugene's<br />
-                Bubble Tea
-              </h1>
-              
-              {/* "Spot" positioned absolutely - this is how drag-and-drop builders work */}
-              <div className="absolute font-quicksand font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-white" 
-                   style={{ 
-                     top: '140px', 
-                     left: '280px',
-                     transform: 'translateX(-50%) translateY(-50%)' 
-                   }}>
-                Spot
-              </div>
-              
-              {/* Decorative Images - positioned absolutely like drag-and-drop */}
-              <Image
-                src="https://api.builder.io/api/v1/image/assets/TEMP/b6056ef1192c4329a92fc3365e4a81f7345cf294?width=224"
-                alt="Person enjoying bubble tea"
-                width={112}
-                height={63}
-                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover"
-                style={{ 
-                  top: '180px', 
-                  left: '140px' 
-                }}
-              />
-              <Image
-                src="https://api.builder.io/api/v1/image/assets/TEMP/7d659ad0ab2d623fcb16c0d3a2a9b548b47a7652?width=248"
-                alt="Person with bubble tea"
-                width={124}
-                height={71}
-                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover"
-                style={{ 
-                  top: '60px', 
-                  right: '100px' 
-                }}
-              />
-              <Image
-                src="https://api.builder.io/api/v1/image/assets/TEMP/f7956ba55688d67d0ea53b3256995107fcd577be?width=212"
-                alt="Bubble tea decoration"
-                width={106}
-                height={106}
-                className="absolute w-20 h-20 md:w-24 md:h-24"
-                style={{ 
-                  top: '200px', 
-                  right: '50px' 
-                }}
-              />
-            </div>
-            
-            <p className="text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
-              Freshly brewed. Made with love.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-5">
-              <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
-                Order Online
-              </button>
-              <button className="border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
-                View Menu
-              </button>
-            </div>
-          </div>
-        </div>
+       {/* Hero Content */}
+<div className="relative z-10 w-full lg:w-1/2 top-20 lg:top-26 justify-center flex items-center pt-12 pb-26">
+  <div className="max-w-xl ">
+    <div className="relative mb-6 h-87">
+      {/* Main title - first two lines */}
+      <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
+        Eugene's<br />
+        Bubble Tea
+      </h1>
+      
+      {/* "Spot" positioned absolutely - this is how drag-and-drop builders work */}
+      <div className="absolute font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl text-white lg:top-[81%] lg:left-[48%] lg:-translate-x-1/2 lg:-translate-y-1/2">
+        Spot
+      </div>
+      
+      {/* Decorative Images - positioned absolutely like drag-and-drop */}
+      <Image
+        src="https://api.builder.io/api/v1/image/assets/TEMP/b6056ef1192c4329a92fc3365e4a81f7345cf294?width=224"
+        alt="Person enjoying bubble tea"
+        width={112}
+        height={63}
+        className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover top-[47%] left-[45%] lg:top-[73%] lg:left-[3%]"
+      />
+      <Image
+        src="https://api.builder.io/api/v1/image/assets/TEMP/7d659ad0ab2d623fcb16c0d3a2a9b548b47a7652?width=248"
+        alt="Person with bubble tea"
+        width={124}
+        height={71}
+        className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover top-[5%] right-[-12%] lg:top-[10%] lg:right-[-7%]"
+      />
+    </div>
+    <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
+      Freshly brewed. Made with love.
+    </p>
+    
+    
+    <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/80 backdrop-blur-sm flex flex-col gap-3 sm:relative sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex-row sm:gap-5">
+  <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
+    Order Online
+  </button>
+  <button className="border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
+    View Menu
+  </button>
+</div>
+  </div>
+</div>
       </section>
 
       {/* Trust Section */}
