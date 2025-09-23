@@ -127,7 +127,7 @@ export default function Home() {
     <div className="relative mb-6 h-87">
       {/* Main title - first two lines */}
       <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
-        Eugene's<br />
+        Eugene&apos;s<br />
         Bubble Tea
       </h1>
       
