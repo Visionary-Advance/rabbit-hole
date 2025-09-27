@@ -1,5 +1,6 @@
 import AboutUs from "@/Components/AboutUs";
 import Contact from "@/Components/Contact";
+import FAQAccordion from "@/Components/FAQ";
 import Reviews from "@/Components/Reviews";
 import Trust from "@/Components/Trust";
 import Image from "next/image";
@@ -250,6 +251,8 @@ export default function Home() {
       <Reviews />
 
       <Contact />
+
+      <FAQAccordion />
     </div>
   );
 }

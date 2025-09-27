@@ -17,7 +17,7 @@ export default function Contact(){
         
       {/* Contact & Location Section */}
       <section className="py-5 md:py-5 lg:py-5 px-6 md:px-16 lg:px-32 xl:px-36 bg-black">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="font-quicksand font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
