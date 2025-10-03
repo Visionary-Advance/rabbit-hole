@@ -122,7 +122,7 @@ export default function Home() {
               />
             </div>
             <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
-              Freshly brewed. Made with love.
+              Freshly brewed. Made with love
             </p>
             
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/80 backdrop-blur-sm flex flex-col gap-3 sm:relative sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex-row sm:gap-5">
