@@ -33,6 +33,7 @@ export default function EditCartModal({
   const [specialInstructions, setSpecialInstructions] = useState(
     existingCartItem?.specialInstructions || ""
   );
+  
   const [computedPrice, setComputedPrice] = useState(Number(item.price));
 
   useEffect(() => {
@@ -105,6 +106,7 @@ export default function EditCartModal({
     } else {
       // For adding new item
       addToCart(updatedItem);
+      window.dispatchEvent(new Event("cartUpdated"));
     }
 
     onClose();
@@ -122,7 +124,7 @@ export default function EditCartModal({
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-black text-xl font-bold z-10"
+          className="absolute top-4 right-4 text-black text-xl font-bold z-10 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
         >
           ✕
         </button>
@@ -136,14 +138,15 @@ export default function EditCartModal({
         )}
 
         <div className="p-4">
-          <h2 className="text-2xl font-semibold">{item.name}</h2>
-          <h2 className="text-2xl font-bold">${computedPrice.toFixed(2)}</h2>
+          <h2 className="text-2xl font-semibold mb-2">{item.name}</h2>
+          <h2 className="text-2xl font-bold mb-2">${computedPrice.toFixed(2)}</h2>
           <p className="text-sm text-gray-700 mb-4">{item.description}</p>
 
+          {/* Size Selection */}
           {item.variations && item.variations.length > 0 && (
             <div className="mb-4">
-              <label className="block font-medium mb-1">Size:</label>
-              <div className="flex flex-col gap-1">
+              <label className="block font-medium mb-2">Size:</label>
+              <div className="flex flex-col gap-2">
                 {item.variations.map((variation) => {
                   const name = variation.name || "Unnamed Size";
                   const id = variation.id;
@@ -152,16 +155,24 @@ export default function EditCartModal({
                     typeof price === "number" ? `$${price.toFixed(2)}` : "";
 
                   return (
-                    <label key={id} className="flex items-center gap-2">
+                    <label 
+                      key={id} 
+                      className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition-colors ${
+                        size.id === id 
+                          ? 'border-primary-green bg-primary-green/10' 
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
                       <input
                         type="radio"
                         name="size"
                         value={id}
                         checked={size.id === id}
                         onChange={() => setSize({ id, name })}
+                        className="accent-primary-green w-4 h-4"
                         required
                       />
-                      <span>
+                      <span className="flex-grow">
                         {name} {displayPrice && `(${displayPrice})`}
                       </span>
                     </label>
@@ -174,10 +185,19 @@ export default function EditCartModal({
           {/* Temperature Selector */}
           {temperatureModifierGroup && (
             <div className="mb-4">
-              <p className="">{temperatureModifierGroup.name}:</p>
-              <div className="flex flex-col gap-1">
+              <p className="font-medium mb-2">{temperatureModifierGroup.name}:</p>
+              <div className="flex flex-col gap-2">
                 {temperatureModifierGroup.modifiers.map((mod) => (
-                  <label key={mod.id} className="flex items-center gap-2">
+                  <label 
+                    key={mod.id} 
+                    className={`flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer transition-colors ${
+                      selectedModifiers.find(
+                        (m) => m.modifierListName === temperatureModifierGroup.name
+                      )?.id === mod.id
+                        ? 'border-primary-green bg-primary-green/10' 
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
                     <input
                       type="radio"
                       name="temperature"
@@ -195,6 +215,7 @@ export default function EditCartModal({
                           temperatureModifierGroup.name
                         )
                       }
+                      className="accent-primary-green w-4 h-4"
                       required
                     />
                     <span>{mod.name}</span>
@@ -256,12 +277,13 @@ export default function EditCartModal({
             </details>
           )}
 
+          {/* Special Instructions */}
           <div className="mb-4">
-            <label className="block font-medium mb-1">
+            <label className="block font-medium mb-2">
               Special Instructions:
             </label>
             <textarea
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-green focus:border-transparent"
               rows={3}
               placeholder="Anything we should know?"
               value={specialInstructions}
@@ -309,7 +331,6 @@ function addToCart(newItem) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  window.dispatchEvent(new Event("cartUpdated"));
 }
 
 function modifiersMatch(mods1, mods2) {

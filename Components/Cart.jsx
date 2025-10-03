@@ -5,8 +5,25 @@ import Button from './Button';
 import Link from 'next/link';
 import EditCartModal from './EditCartModal';
 
-export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFullItemData }) {
+export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
   const [editingItem, setEditingItem] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
+
+  // Fetch menu items to get full item data
+  useEffect(() => {
+    async function fetchMenuItems() {
+      try {
+        const response = await fetch('/api/square-items');
+        if (response.ok) {
+          const data = await response.json();
+          setMenuItems(data.items || []);
+        }
+      } catch (error) {
+        console.error('Failed to load menu items:', error);
+      }
+    }
+    fetchMenuItems();
+  }, []);
 
   // ✅ Used for saving updated items (from modal or inline)
   const updateCartItem = (cartId, updatedData) => {
@@ -49,6 +66,11 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFull
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose]);
 
+  // Get full item data from menu items
+  const getFullItemData = (itemId) => {
+    return menuItems.find(menuItem => menuItem.id === itemId);
+  };
+
   return (
     <>
       {isOpen && (
@@ -60,7 +82,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFull
       )}
 
       <div
-        className={`fixed top-0 right-0 h-full w-full md:w-96 bg-[#8a6e58] text-white z-50 transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-full md:w-96 bg-[#88AD89] text-white z-50 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } flex flex-col`}
       >
@@ -87,7 +109,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFull
               >
                 {/* Item Image */}
                 {item.img && (
-                  <div className="h-16 w-16 rounded-full overflow-hidden mr-4 bg-[#50311D] flex-shrink-0">
+                  <div className="h-16 w-16 rounded-full overflow-hidden mr-4 bg-primary flex-shrink-0">
                     <img
                       src={item.img}
                       alt={item.name}
@@ -165,9 +187,9 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFull
         </div>
 
         {/* Modal for editing */}
-        {editingItem && (
+        {editingItem && getFullItemData(editingItem.id) && (
           <EditCartModal
-            item={getFullItemData ? getFullItemData(editingItem.id) : editingItem}
+            item={getFullItemData(editingItem.id)}
             editing={true}
             existingCartItem={editingItem}
             onClose={() => setEditingItem(null)}
@@ -179,7 +201,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems, getFull
         )}
 
         {/* Subtotal + Checkout */}
-        <div className="border-t border-[#d9c3a0] p-4 bg-[#6b543f]">
+        <div className="border-t border-[#d9c3a0] p-4 bg-[#88AD89]">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold">Subtotal:</h3>
             <p className="text-xl font-semibold">${calculateSubtotal()}</p>
