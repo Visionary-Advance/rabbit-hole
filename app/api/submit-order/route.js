@@ -8,22 +8,23 @@ function safeStringify(obj) {
 }
 
 function isShopOpenServer() {
-  const now = new Date();
-  const currentHour = now.getHours();
-  const currentDay = now.getDay();
+  return true;
+  // const now = new Date();
+  // const currentHour = now.getHours();
+  // const currentDay = now.getDay();
   
-  const businessHours = {
-    1: { open: 7, close: 20 },
-    2: { open: 7, close: 20 },
-    3: { open: 7, close: 20 },
-    4: { open: 7, close: 20 },
-    5: { open: 7, close: 20 },
-    6: { open: 8, close: 21 },
-    0: { open: 8, close: 18 }
-  };
+  // const businessHours = {
+  //   1: { open: 7, close: 20 },
+  //   2: { open: 7, close: 20 },
+  //   3: { open: 7, close: 20 },
+  //   4: { open: 7, close: 20 },
+  //   5: { open: 7, close: 20 },
+  //   6: { open: 8, close: 21 },
+  //   0: { open: 8, close: 18 }
+  // };
   
-  const todayHours = businessHours[currentDay];
-  return currentHour >= todayHours.open && currentHour < todayHours.close;
+  // const todayHours = businessHours[currentDay];
+  // return currentHour >= todayHours.open && currentHour < todayHours.close;
 }
 
 export async function POST(req) {
