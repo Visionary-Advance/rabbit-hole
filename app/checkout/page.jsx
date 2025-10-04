@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import OrderSummaryDropdown from '@/Components/CheckOutDropDown';
 import { isShopOpen, getShopStatus } from '@/lib/businessHours';
 import SquarePaymentForm from '@/Components/SquarePaymentForm';
+import OrderSummaryDropdown from '@/Components/CheckOutDropDown';
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
