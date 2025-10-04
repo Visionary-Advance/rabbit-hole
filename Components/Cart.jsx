@@ -86,11 +86,11 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } flex flex-col`}
       >
-        <div className="flex justify-between items-center p-4 border-b border-[#d9c3a0]">
+        <div className="flex justify-between items-center p-4 border-b border-[#A8D5BA]">
           <h2 className="text-2xl font-semibold">Your Cart</h2>
           <button
             onClick={onClose}
-            className="text-3xl font-bold hover:text-[#d9c3a0]"
+            className="text-3xl font-bold hover:text-[#A8D5BA]"
           >
             X
           </button>
@@ -201,7 +201,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
         )}
 
         {/* Subtotal + Checkout */}
-        <div className="border-t border-[#d9c3a0] p-4 bg-[#88AD89]">
+        <div className="border-t border-[#A8D5BA] p-4 bg-[#88AD89]">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold">Subtotal:</h3>
             <p className="text-xl font-semibold">${calculateSubtotal()}</p>
@@ -219,7 +219,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
             <Button
               width="w-full"
               text="Proceed to Checkout"
-              color="bg-[#50311D] text-white"
+              color="bg-white text-black"
               disabled={cartItems.length === 0}
             />
           </Link>
