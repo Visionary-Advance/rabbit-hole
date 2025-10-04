@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CreditCard, ApplePay, GooglePay, PaymentForm } from "react-square-web-payments-sdk";
 import OrderSummaryDropdown from '@/Components/CheckOutDropDown';
 import { isShopOpen, getShopStatus } from '@/lib/businessHours';
+import SquarePaymentForm from '@/Components/SquarePaymentForm';
 
 export default function Checkout() {
   const [cartItems, setCartItems] = useState([]);
@@ -19,7 +19,7 @@ export default function Checkout() {
 
   const shopStatus = getShopStatus();
   const appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
-  const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
+  const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L3ZBNPD54KQT1';
 
   useEffect(() => {
     const loadCart = () => {
@@ -165,7 +165,7 @@ export default function Checkout() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          sourceId: token.token,
+          sourceId: token,
           customerName: customerName.trim(),
           paymentMethod: 'online',
           locationId,
@@ -480,89 +480,29 @@ export default function Checkout() {
               {paymentMethod === 'online' ? (
                 <>
                   <h2 className="font-quicksand text-2xl text-black-900 text-center font-bold mb-4">Payment Options</h2>
-                  <PaymentForm
+                  
+                  {paymentMethod === 'online' && getTipAmount() > 0 && (
+                    <div className="bg-primary-green/10 border-l-4 border-primary-green p-4 mb-6 rounded-lg">
+                      <h3 className="text-sm font-medium text-black-900 mb-2">
+                        Payment Total Notice
+                      </h3>
+                      <div className="text-sm text-black-700">
+                        <p className="font-semibold">
+                          You will be charged ${totalWithTip} total
+                        </p>
+                        <p className="mt-1">• Order: ${subtotal.toFixed(2)}</p>
+                        <p>• Tip ({selectedTip === 'custom' ? 'Custom' : selectedTip + '%'}): ${getTipAmount().toFixed(2)}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <SquarePaymentForm
                     applicationId={appId}
                     locationId={locationId}
-                    cardTokenizeResponseReceived={handleOnlinePayment}
-                    createPaymentRequest={() => ({
-                      countryCode: "US",
-                      currencyCode: "USD",
-                      total: {
-                        amount: totalWithTip,
-                        label: getTipAmount() > 0 
-                          ? `Total: ${subtotal.toFixed(2)} + ${getTipAmount().toFixed(2)} tip`
-                          : `Total: ${subtotal.toFixed(2)}`,
-                      }
-                    })}
-                  >
-                    {paymentMethod === 'online' && getTipAmount() > 0 && (
-                      <div className="bg-primary-green/10 border-l-4 border-primary-green p-4 mb-6 rounded-lg">
-                        <h3 className="text-sm font-medium text-black-900 mb-2">
-                          Payment Total Notice
-                        </h3>
-                        <div className="text-sm text-black-700">
-                          <p className="font-semibold">
-                            You will be charged ${totalWithTip} total
-                          </p>
-                          <p className="mt-1">• Order: ${subtotal.toFixed(2)}</p>
-                          <p>• Tip ({selectedTip === 'custom' ? 'Custom' : selectedTip + '%'}): ${getTipAmount().toFixed(2)}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="space-y-4 mb-6">
-                      <ApplePay 
-                        buttonProps={{
-                          css: {
-                            width: '100%',
-                            height: '48px',
-                            borderRadius: '24px',
-                          }
-                        }}
-                      />
-                      
-                      <GooglePay 
-                        buttonColor="black"
-                        buttonType="long"
-                        buttonSizeMode="fill"
-                        buttonProps={{
-                          css: {
-                            width: '100%',
-                            height: '48px',
-                            borderRadius: '24px',
-                          }
-                        }}
-                      />
-                    </div>
-
-                    <div className="relative my-6">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-black-300"></div>
-                      </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-secondary text-black-500">Or pay with card</span>
-                      </div>
-                    </div>
-
-                    <CreditCard 
-                      buttonProps={{
-                        isLoading: paymentStatus === 'processing',
-                        css: {
-                          backgroundColor: '#88AD89',
-                          color: '#171B26',
-                          '&:hover': {
-                            opacity: 0.9,
-                          },
-                          marginTop: '1rem',
-                          width: '100%',
-                          padding: '0.75rem',
-                          borderRadius: '24px',
-                          fontSize: '1rem',
-                          fontWeight: '600',
-                        }
-                      }}
-                    />
-                  </PaymentForm>
+                    amount={amountWithTipCents}
+                    onPaymentSuccess={handleOnlinePayment}
+                    loading={paymentStatus === 'processing'}
+                  />
                 </>
               ) : (
                 <div className="text-center">
