@@ -14,7 +14,7 @@ export default function MenuCard({ item, onClick }) {
     >
       <div className="flex gap-4">
         {/* Item Image (if available) */}
-        {item.img && (
+        {/* {item.img && (
           <div className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden bg-gray-100">
             <Image
               src={item.img}
@@ -25,7 +25,7 @@ export default function MenuCard({ item, onClick }) {
             />
           </div>
         )}
-        
+         */}
         {/* Item Details */}
         <div className="flex-1 flex flex-col justify-between">
           <div>

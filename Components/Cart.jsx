@@ -105,10 +105,10 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
             cartItems.map(item => (
               <div
                 key={item.cartId}
-                className="flex items-start mb-6 pb-6 border-b border-[#d9c3a0] last:border-0"
+                className="flex items-start mb-6 pb-6 border-b border-[#A8D5BA] last:border-0"
               >
                 {/* Item Image */}
-                {item.img && (
+                {/* {item.img && (
                   <div className="h-16 w-16 rounded-full overflow-hidden mr-4 bg-primary flex-shrink-0">
                     <img
                       src={item.img}
@@ -116,7 +116,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                )}
+                )} */}
 
                 {/* Item Details */}
                 <div className="flex-grow space-y-1">
@@ -163,7 +163,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
 
                   <button
                     onClick={() => setEditingItem(item)}
-                    className="text-sm text-[#d9c3a0] hover:underline mr-2"
+                    className="text-sm text-white hover:underline mr-2"
                   >
                     Edit
                   </button>
@@ -171,7 +171,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
                     onClick={() =>
                       removeItem(item.cartId, item.size.name)
                     }
-                    className="text-sm text-[#d9c3a0] hover:underline"
+                    className="text-sm text-white hover:underline"
                   >
                     Remove
                   </button>

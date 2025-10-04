@@ -21,13 +21,13 @@ function isShopOpenServer() {
   });
   
   const businessHours = {
-    1: { open: 7, close: 20 },  // Monday - Friday: 7 AM - 8 PM PT
-    2: { open: 7, close: 20 },
-    3: { open: 7, close: 20 },
-    4: { open: 7, close: 20 },
-    5: { open: 7, close: 20 },
-    6: { open: 8, close: 21 },  // Saturday: 8 AM - 9 PM PT
-    0: { open: 8, close: 18 }   // Sunday: 8 AM - 6 PM PT
+    1: { open: 7, close: 6 },  // Monday - Friday: 7 AM - 8 PM PT
+    2: { open: 7, close: 6 },
+    3: { open: 7, close: 6 },
+    4: { open: 7, close: 6 },
+    5: { open: 7, close: 6 },
+    6: { open: 8, close: 6 },  // Saturday: 8 AM - 9 PM PT
+    0: { open: 8, close: 6 }   // Sunday: 8 AM - 6 PM PT
   };
   
   const todayHours = businessHours[currentDay];
@@ -36,15 +36,15 @@ function isShopOpenServer() {
 
 export async function POST(req) {
   try {
-    if (!isShopOpenServer()) {
-      return new Response(
-        JSON.stringify({
-          message: "Sorry, we're currently closed and cannot process orders.",
-          type: "BusinessHoursError"
-        }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    // if (!isShopOpenServer()) {
+    //   return new Response(
+    //     JSON.stringify({
+    //       message: "Sorry, we're currently closed and cannot process orders.",
+    //       type: "BusinessHoursError"
+    //     }),
+    //     { status: 400, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
     
     // EXTRACT THE AMOUNT FROM THE REQUEST (includes tip)
     const { sourceId, customerName, paymentMethod, orderDetails, locationId, amount } = await req.json();

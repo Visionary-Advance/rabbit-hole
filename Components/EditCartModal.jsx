@@ -129,13 +129,13 @@ export default function EditCartModal({
           ✕
         </button>
 
-        {item.img && (
+        {/* {item.img && (
           <img
             src={item.img}
             alt={item.name}
             className="w-full h-64 object-cover"
           />
-        )}
+        )} */}
 
         <div className="p-4">
           <h2 className="text-2xl font-semibold mb-2">{item.name}</h2>
