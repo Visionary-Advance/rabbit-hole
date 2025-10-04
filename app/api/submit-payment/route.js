@@ -8,18 +8,26 @@ function safeStringify(obj) {
 }
 
 function isShopOpenServer() {
+  // Get current time in Pacific Time (Oregon)
   const now = new Date();
-  const currentHour = now.getHours();
-  const currentDay = now.getDay();
+  const pacificTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+  const currentHour = pacificTime.getHours();
+  const currentDay = pacificTime.getDay();
+  
+  console.log('🕐 Pacific Time:', {
+    time: pacificTime.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+    hour: currentHour,
+    day: currentDay
+  });
   
   const businessHours = {
-    1: { open: 7, close: 24 },  // Monday
-    2: { open: 7, close: 24 },  // Tuesday
-    3: { open: 7, close: 24 },  // Wednesday
-    4: { open: 7, close: 24 },  // Thursday
-    5: { open: 7, close: 24 },  // Friday
-    6: { open: 8, close: 24 },  // Saturday
-    0: { open: 8, close: 24 }   // Sunday
+    1: { open: 7, close: 20 },  // Monday - Friday: 7 AM - 8 PM PT
+    2: { open: 7, close: 20 },
+    3: { open: 7, close: 20 },
+    4: { open: 7, close: 20 },
+    5: { open: 7, close: 20 },
+    6: { open: 8, close: 21 },  // Saturday: 8 AM - 9 PM PT
+    0: { open: 8, close: 18 }   // Sunday: 8 AM - 6 PM PT
   };
   
   const todayHours = businessHours[currentDay];
