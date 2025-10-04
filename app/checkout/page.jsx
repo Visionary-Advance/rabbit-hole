@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { isShopOpen, getShopStatus } from '@/lib/businessHours';
 import SquarePaymentForm from '@/Components/SquarePaymentForm';
-import order from '@/Components/OrderSummaryDropdown';
 import OrderSummaryDropdown from '@/Components/OrderSummaryDropdown';
 
 export default function Checkout() {
