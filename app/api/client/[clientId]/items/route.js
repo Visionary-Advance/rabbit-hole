@@ -1,59 +1,56 @@
 import { NextResponse } from 'next/server';
 import { SquareClient, SquareEnvironment } from 'square';
-import { getSquareAuth, getLocationId } from '@/lib/square-auth';
+import { getSquareAuth } from '@/lib/square-auth';
 
-export async function GET() {
+export async function GET(request, { params }) {
   try {
-    console.log('🔍 Fetching Square items for Rabbit Hole...');
+    const { clientId } = params;
     
-    // Get auth credentials from Supabase (will auto-refresh if needed)
-    const auth = await getSquareAuth();
-    
-    console.log('✅ Retrieved auth for:', auth.restaurantName);
-    console.log('📍 Location ID:', auth.locationId);
-    console.log('🔑 Token expires at:', auth.expiresAt);
-    
-    // Check if token needs refresh (expired or expiring in next 5 days)
-    const expiresAt = new Date(auth.expiresAt);
-    const fiveDaysFromNow = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
-    
-    let accessToken = auth.accessToken;
-    
-    if (expiresAt <= fiveDaysFromNow) {
-      console.log('⚠️ Token expired or expiring soon, refreshing...');
-      // Import the refresh function
-      const { refreshSquareToken } = await import('@/lib/square-auth-refresh');
-      accessToken = await refreshSquareToken(process.env.RABBIT_HOLE_CLIENT_ID);
-      console.log('✅ Token refreshed successfully');
+    if (!clientId) {
+      return NextResponse.json(
+        { error: 'Client ID is required' }, 
+        { status: 400 }
+      );
     }
+
+    // Get the stored Square auth for this client
+    const authData = await getSquareAuth(clientId);
     
-    // Initialize Square client with valid token
+    if (!authData) {
+      return NextResponse.json(
+        { error: 'Client not found or not authorized' }, 
+        { status: 404 }
+      );
+    }
+
+    // Check if token is expired
+    if (new Date(authData.expiresAt) < new Date()) {
+      return NextResponse.json(
+        { error: 'Access token expired. Client needs to reauthorize.' }, 
+        { status: 401 }
+      );
+    }
+
+    // Initialize Square client with stored token
     const client = new SquareClient({
       environment: process.env.SQUARE_ENVIRONMENT === 'production' 
         ? SquareEnvironment.Production 
         : SquareEnvironment.Sandbox,
-      token: accessToken,
+      token: authData.accessToken,
     });
 
-    console.log('📡 Fetching catalog from Square...');
-    
+    // Fetch catalog items
     const rawResponse = await client.catalog.list({
       types: "ITEM,IMAGE,CATEGORY,MODIFIER_LIST,MODIFIER",
     });
 
     const result = rawResponse.response?.objects || rawResponse.data || [];
-    
-    console.log('✅ Retrieved', result.length, 'catalog objects');
 
+    // Process items (same logic as your current square-items route)
     const items = result.filter(obj => obj.type === 'ITEM');
     const images = result.filter(obj => obj.type === 'IMAGE');
     const modifierLists = result.filter(obj => obj.type === 'MODIFIER_LIST');
     const modifiers = result.filter(obj => obj.type === 'MODIFIER');
-
-    console.log('📦 Items:', items.length);
-    console.log('🖼️ Images:', images.length);
-    console.log('📝 Modifier Lists:', modifierLists.length);
-    console.log('🔧 Modifiers:', modifiers.length);
 
     const categoryMap = {};
     result.forEach(obj => {
@@ -140,40 +137,19 @@ export async function GET() {
       };
     });
 
-    console.log('✅ Processed', filteredItems.length, 'menu items');
-
     return NextResponse.json({ 
       items: filteredItems,
-      metadata: {
-        restaurantName: auth.restaurantName,
-        locationId: auth.locationId,
-        itemCount: filteredItems.length
+      clientInfo: {
+        clientId: authData.clientId,
+        restaurantName: authData.restaurantName,
+        locationId: authData.locationId
       }
     });
 
   } catch (error) {
-    console.error('❌ Square API Error:', error);
-    
-    // Provide helpful error messages
-    if (error.message.includes('RABBIT_HOLE_CLIENT_ID')) {
-      return NextResponse.json({ 
-        error: 'Configuration Error',
-        message: 'Client ID not configured. Please contact support.',
-        details: error.message 
-      }, { status: 500 });
-    }
-    
-    if (error.message.includes('expired')) {
-      return NextResponse.json({ 
-        error: 'Token Expired',
-        message: 'Square authorization has expired. Please contact Visionary Advance to refresh.',
-        details: error.message 
-      }, { status: 401 });
-    }
-    
+    console.error('❌ Error fetching client items:', error);
     return NextResponse.json({ 
-      error: 'Failed to fetch menu items',
-      message: error.message 
+      error: error.message || 'Failed to fetch items' 
     }, { status: 500 });
   }
 }

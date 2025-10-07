@@ -1,5 +1,6 @@
 import { SquareClient, SquareEnvironment } from "square";
 import crypto from "crypto";
+import { getSquareAuth } from "@/lib/square-auth";
 
 function safeStringify(obj) {
   return JSON.stringify(obj, (_, value) =>
@@ -8,31 +9,25 @@ function safeStringify(obj) {
 }
 
 function isShopOpenServer() {
-  // Get current time in Pacific Time (Oregon)
   const now = new Date();
   const pacificTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
   const currentHour = pacificTime.getHours();
   const currentDay = pacificTime.getDay();
   
-  console.log('🕐 Pacific Time:', {
-    time: pacificTime.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
-    hour: currentHour,
-    day: currentDay
-  });
-  
   const businessHours = {
-    1: { open: 7, close: 6 },  // Monday - Friday: 7 AM - 8 PM PT
-    2: { open: 7, close: 6 },
-    3: { open: 7, close: 6 },
-    4: { open: 7, close: 6 },
-    5: { open: 7, close: 6 },
-    6: { open: 8, close: 6 },  // Saturday: 8 AM - 9 PM PT
-    0: { open: 8, close: 6 }   // Sunday: 8 AM - 6 PM PT
+    0: { open: 8, close: 18 },
+    1: { open: 7, close: 20 },
+    2: { open: 7, close: 20 },
+    3: { open: 7, close: 20 },
+    4: { open: 7, close: 20 },
+    5: { open: 7, close: 20 },
+    6: { open: 8, close: 21 },
   };
   
   const todayHours = businessHours[currentDay];
   return currentHour >= todayHours.open && currentHour < todayHours.close;
 }
+
 export async function POST(req) {
   try {
     // if (!isShopOpenServer()) {
@@ -47,14 +42,8 @@ export async function POST(req) {
 
     const { customerName, paymentMethod, orderDetails, locationId } = await req.json();
 
-   
-    // Validate required fields
     if (!customerName || !customerName.trim()) {
       throw new Error("Customer name is required");
-    }
-
-    if (!locationId) {
-      throw new Error("locationId is required");
     }
 
     if (!orderDetails || !orderDetails.items || orderDetails.items.length === 0) {
@@ -65,21 +54,34 @@ export async function POST(req) {
       throw new Error("This endpoint is only for in-store payment orders");
     }
 
+    // Get auth from Supabase
+    console.log('🔐 Getting Square credentials from Supabase...');
+    const auth = await getSquareAuth();
+    
+    // Use location from database if not provided
+    const finalLocationId = locationId || auth.locationId;
+    
+    if (!finalLocationId) {
+      throw new Error("Location ID not found");
+    }
+
+    console.log('✅ Using location:', finalLocationId);
+
+    // Initialize Square client with token from database
     const client = new SquareClient({
-      environment: SquareEnvironment.Sandbox,
-      token: process.env.SQUARE_ACCESS_TOKEN,
+      environment: process.env.SQUARE_ENVIRONMENT === 'production' 
+        ? SquareEnvironment.Production 
+        : SquareEnvironment.Sandbox,
+      token: auth.accessToken, // Use token from database
     });
 
-   
-
-    
     const orderRequest = {
       order: {
-        locationId,
+        locationId: finalLocationId,
         source: {
           name: "**Pay In Store - Website"
         },
-        state: "OPEN", // Explicitly set order state
+        state: "OPEN",
         fulfillments: [
           {
             type: "PICKUP",
@@ -156,18 +158,13 @@ export async function POST(req) {
           customerName: customerName.trim(),
           paymentStatus:'UNPAID'
         },
-        // Add visible order note (correct field name)
         note: `PAY IN STORE - Customer: ${customerName.trim()}`,
       },
       idempotencyKey: crypto.randomUUID(),
     };
 
-   
-
     const orderResponse = await client.orders.create(orderRequest);
     
-   
-
     if (orderResponse.errors && orderResponse.errors.length > 0) {
       console.error("Order creation errors:", safeStringify(orderResponse.errors));
       throw new Error(`Order creation failed: ${orderResponse.errors.map(e => e.detail || e.category).join('; ')}`);
@@ -182,55 +179,6 @@ export async function POST(req) {
 
     const orderId = order.id;
     const totalAmount = order.totalMoney?.amount || order.total_money?.amount;
-
-   
-
-    // STEP 2: Try creating a pending cash payment to make it visible in POS
-    try {
-     
-
-      
-      const pendingPaymentResponse = await client.payments.create({
-        idempotencyKey: crypto.randomUUID(),
-        sourceId: "EXTERNAL", // Use EXTERNAL for manual/cash payments
-        locationId,
-        orderId,
-        amountMoney: {
-          amount: BigInt(totalAmount || 0),
-          currency: "USD",
-        },
-        note: `IN-STORE PAYMENT PENDING - Customer: ${customerName.trim()}`,
-        // Use valid external type
-        externalDetails: {
-          type: "OTHER", // Use OTHER instead of CASH
-          source: "In-store cash payment",
-          sourceId: `instore-${orderId}`,
-        },
-        delayCapture: false, // Don't delay capture
-      });
-
-      if (pendingPaymentResponse.result?.payment) {
-       
-        
-        // This should make the order visible in POS with payment status
-        return Response.json({
-          orderId: orderId,
-          paymentId: pendingPaymentResponse.result.payment.id,
-          customerName: customerName.trim(),
-          status: "AWAITING_PAYMENT",
-          totalAmount: totalAmount?.toString(),
-          currency: "USD",
-          paymentMethod: "instore",
-          orderSummary: itemSummary,
-          message: "Order received! Please pay when you pick up your order.",
-          createdAt: order.created_at || order.createdAt || new Date().toISOString(),
-        });
-      }
-    } catch (paymentError) {
-      console.log("Pending payment creation failed:", paymentError.message);
-      console.log("Payment error details:", safeStringify(paymentError));
-      // Continue with regular order response if payment creation fails
-    }
 
     const itemSummary = orderDetails.items.map(item => {
       let name = item.name;

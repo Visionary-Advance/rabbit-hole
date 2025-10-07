@@ -16,10 +16,11 @@ export default function Checkout() {
   const [customerName, setCustomerName] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('online');
   const [nameError, setNameError] = useState('');
+  const [locationId, setLocationId] = useState(null);
 
   const shopStatus = getShopStatus();
   const appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
-  const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID || 'L3ZBNPD54KQT1';
+ 
 
   useEffect(() => {
     const loadCart = () => {
@@ -36,6 +37,19 @@ export default function Checkout() {
     };
     loadCart();
   }, []);
+
+  useEffect(() => {
+  async function fetchLocationId() {
+    try {
+      const response = await fetch('/api/get-location-id');
+      const data = await response.json();
+      setLocationId(data.locationId);
+    } catch (error) {
+      console.error('Failed to get location ID:', error);
+    }
+  }
+  fetchLocationId();
+}, []);
 
   useEffect(() => {
     if (paymentMethod === 'instore') {

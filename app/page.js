@@ -94,7 +94,15 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 w-full lg:w-1/2 top-20 lg:top-26 justify-center flex items-center pt-12 pb-26">
+        <div className="relative z-10 w-full lg:w-1/2  justify-center flex items-center pt-12 pb-26">
+        <div className='absolute w-full top-20 right-0'>
+          <Image 
+          src={"/Img/Boba.png"}
+          alt='Boba for bubble tea'
+          fill
+          className='absolute w-20 h-20'
+          />
+        </div>
           <div className="max-w-xl ">
             <div className="relative mb-6 h-87">
               <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
@@ -125,7 +133,7 @@ export default function Home() {
               Freshly brewed. Made with love
             </p>
             
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-black/80 backdrop-blur-sm flex flex-col gap-3 sm:relative sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex-row sm:gap-5">
+            <div className=" p-4 bg-black/80 backdrop-blur-sm flex flex-col gap-3 sm:relative sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex-row sm:gap-5">
               <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
                 Order Online
               </button>
