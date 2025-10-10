@@ -40,7 +40,7 @@ function FAQAccordion() {
   };
 
   return (
-    <div className="space-y-5">
+    <div id="faq" className="space-y-5">
       {faqItems.map((item) => (
         <div
           key={item.id}
@@ -124,7 +124,7 @@ export default function FAQSection() {
             
             <div className="relative">
               <Image
-                src="https://api.builder.io/api/v1/image/assets/TEMP/446b16a21e8038e81936d9736d398b2b1b7417c5?width=992"
+                src="/Img/Holding_Tea.jpg"
                 alt="Person holding bubble tea"
                 width={496}
                 height={331}

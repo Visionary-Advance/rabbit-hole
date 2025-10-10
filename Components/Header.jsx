@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Header(){
 
 
@@ -19,11 +21,9 @@ export default function Header(){
                       />
                       <div className="w-px h-5 bg-black-400"></div>
                       <div className="hidden md:flex items-center gap-8">
-                        <div className="flex items-center justify-center px-2 py-1 border border-black-300 rounded">
-                          <span className="text-black-900 font-medium">Home</span>
-                        </div>
-                        <span className="text-black-500">Menu</span>
-                        <span className="text-black-500">About Us</span>
+                       
+                        <a href="#menu" className="text-black-900">Menu</a>
+                        <a href="#about" className="text-black-900">About Us</a>
                       </div>
                     </div>
                   </div>
@@ -39,8 +39,10 @@ export default function Header(){
                       </svg>
                       <span className="text-black-400">(0)</span>
                     </div>
-                    <button className="bg-primary-green text-black-900 h-10 px-4 rounded-full font-medium text-sm hover:bg-opacity-90 transition-colors">
+                    <button  className="bg-primary-green text-black-900 h-10 px-4 rounded-full font-medium text-sm hover:bg-opacity-90 transition-colors">
+                      <a href="#contact">
                       Contact Us
+                      </a>
                     </button>
                   </div>
                 </nav></>

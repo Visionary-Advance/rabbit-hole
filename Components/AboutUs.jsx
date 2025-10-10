@@ -13,7 +13,7 @@ export default function AboutUs(){
             <>
             
             
-              <section className="relative px-6 bg-[#FFFAF4] w-full overflow-hidden">
+              <section id="about" className="relative px-6 bg-[#FFFAF4] w-full overflow-hidden">
   <div className="max-w-7xl mx-auto py-10 relative">
           <div className="flex flex-col mx-auto lg:flex-row items-center gap-12 ">
             {/* Left Column - Title and Tea Group */}
@@ -28,7 +28,7 @@ export default function AboutUs(){
               {/* Tea Group Image */}
               <div className="relative flex justify-end lg:justify-start">
                 <Image
-                  src="https://api.builder.io/api/v1/image/assets/TEMP/4d7a67141556b2ccd41980f25e2421b0f4cf7868?width=946"
+                  src="/Img/Tea_Group.jpg"
                   alt="Variety of bubble tea drinks"
                   width={473}
                   height={540}
