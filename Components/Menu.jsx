@@ -11,41 +11,52 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Determine initial items based on screen size
+  const getInitialItems = () => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1024 ? 6 : 10;
+    }
+    return 10;
+  };
+
+  const [itemsToShow, setItemsToShow] = useState(getInitialItems());
 
   useEffect(() => {
     async function fetchMenuItems() {
       try {
         setLoading(true);
         setError(null);
-        
+
         console.log('Fetching menu items...');
         const response = await fetch('/api/square-items');
-        
+
         console.log('Response status:', response.status);
-        
+
         if (!response.ok) {
           const errorText = await response.text();
           console.error('API Error Response:', errorText);
           throw new Error(`Failed to fetch menu items: ${response.status} ${response.statusText}`);
         }
-        
+
         const data = await response.json();
         console.log('Fetched data:', data);
-        
+
         if (!data.items || !Array.isArray(data.items)) {
           throw new Error('Invalid data format received from API');
         }
-        
+
         // Extract unique categories
         const uniqueCategories = ['All Tea', ...new Set(
           data.items
             .map(item => item.category)
             .filter(cat => cat && cat !== 'Uncategorized')
         )];
-        
+
         console.log('Categories:', uniqueCategories);
         console.log('Total items:', data.items.length);
-        
+
         setCategories(uniqueCategories);
         setMenuItems(data.items);
         setLoading(false);
@@ -59,10 +70,49 @@ export default function Menu() {
     fetchMenuItems();
   }, []);
 
-  // Filter items by selected category
-  const filteredItems = selectedCategory === 'All Tea' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === selectedCategory);
+  // Reset items to show when category or search changes
+  useEffect(() => {
+    setItemsToShow(getInitialItems());
+  }, [selectedCategory, searchQuery]);
+
+  // Update items to show on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const initial = getInitialItems();
+      setItemsToShow(prev => {
+        // Only reset if we're at the initial value, otherwise keep user's selection
+        if (prev === 6 || prev === 10) {
+          return initial;
+        }
+        return prev;
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Filter items by selected category and search query
+  const filteredItems = menuItems.filter(item => {
+    // Category filter
+    const matchesCategory = selectedCategory === 'All Tea' || item.category === selectedCategory;
+
+    // Search filter
+    const matchesSearch = searchQuery === '' ||
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
+
+  // Slice items to show only the number specified
+  const displayedItems = filteredItems.slice(0, itemsToShow);
+  const hasMore = itemsToShow < filteredItems.length;
+
+  const handleLoadMore = () => {
+    const increment = typeof window !== 'undefined' && window.innerWidth < 1024 ? 6 : 10;
+    setItemsToShow(prev => prev + increment);
+  };
 
   const handleCardClick = (item) => {
     setSelectedItem(item);
@@ -104,6 +154,45 @@ export default function Menu() {
           </div>
         )}
 
+        {/* Search Bar */}
+        {!loading && !error && (
+          <div className="max-w-md mx-auto mb-8">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search menu items..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-3 pl-12 rounded-full border-2 border-black-300 bg-white text-black-900 placeholder-black-400 focus:outline-none focus:border-primary-green transition-colors"
+              />
+              <svg
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-black-400 hover:text-black-900 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Loading State */}
         {loading && (
           <div className="text-center py-12">
@@ -133,10 +222,10 @@ export default function Menu() {
         {!loading && !error && (
           <>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              {filteredItems.map((item) => (
-                <MenuCard 
-                  key={item.id} 
-                  item={item} 
+              {displayedItems.map((item) => (
+                <MenuCard
+                  key={item.id}
+                  item={item}
                   onClick={handleCardClick}
                 />
               ))}
@@ -146,6 +235,21 @@ export default function Menu() {
             {filteredItems.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-white">No items found in this category.</p>
+              </div>
+            )}
+
+            {/* Load More Button */}
+            {hasMore && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={handleLoadMore}
+                  className="bg-primary-green text-black-900 px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-colors"
+                >
+                  Load More
+                </button>
+                <p className="text-black-500 mt-3 text-sm">
+                  Showing {displayedItems.length} of {filteredItems.length} items
+                </p>
               </div>
             )}
           </>
