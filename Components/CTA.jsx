@@ -1,3 +1,5 @@
+import Image from "next/image";
+
  
  
  export default function CTA(){
@@ -11,6 +13,12 @@
         <div className="max-w-5xl mx-auto relative">
           {/* CTA Card */}
           <div className="relative bg-[#FFFAF4] rounded-[2.5rem] py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:px-16">
+            <div className="absolute bottom-0 right-0">
+              <Image src={'/Img/Boba.png'} className="w-40" width={350} height={350} alt="Boba Pearls" />
+            </div>
+            <div className="absolute bottom-0 left-0 rotate-y-180">
+              <Image src={'/Img/Boba.png'} className="w-40" width={350} height={350} alt="Boba Pearls" />
+            </div>
             {/* Decorative Bubble Tea Icons */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-[#FFF3B2] rounded-full flex items-center justify-center">
               <div className="relative w-28 h-20">

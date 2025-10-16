@@ -55,10 +55,10 @@ export default function Home() {
             src="https://api.builder.io/api/v1/image/assets/TEMP/51af8464867a420b04c85c9ef60d048c9ef62263?width=2720"
             alt="Bubble tea background"
             fill
-            className="object-cover md:rounded-3xl md:rounded-[2rem]"
+            className="object-cover md:rounded-3xl "
             style={{ objectPosition: 'center top' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:rounded-3xl md:rounded-[2rem]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:rounded-3xl "></div>
         </div>
 
         {/* Hero Content */}
