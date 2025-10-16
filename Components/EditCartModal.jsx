@@ -88,6 +88,23 @@ export default function EditCartModal({
   );
 
   const handleSave = () => {
+    // Validate required fields
+    if (!size || !size.id) {
+      alert("Please select a size");
+      return;
+    }
+
+    // Check if temperature selection is required
+    if (temperatureModifierGroup && temperatureModifierGroup.modifiers?.length > 0) {
+      const hasTemperatureSelected = selectedModifiers.some(
+        mod => mod.modifierListName === temperatureModifierGroup.name
+      );
+      if (!hasTemperatureSelected) {
+        alert("Please select a temperature");
+        return;
+      }
+    }
+
     const updatedItem = {
       id: item.id,
       name: item.name,

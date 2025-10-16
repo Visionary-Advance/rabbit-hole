@@ -393,29 +393,33 @@ export default function Checkout() {
             <div className="bg-secondary rounded-3xl shadow-md p-6 mb-6">
               <h3 className="font-quicksand text-xl font-bold mb-4 text-black-900">Payment Method</h3>
               <div className="space-y-3">
-                <label className="flex bg-white items-center p-4 border-2 rounded-2xl cursor-pointer hover:bg-white/50 transition-colors border-black-200">
+                <label className={`flex bg-white items-center p-4 border-2 rounded-2xl cursor-pointer hover:bg-white/80 transition-colors ${
+                  paymentMethod === 'online' ? 'border-primary-green ring-2 ring-primary-green' : 'border-black-200'
+                }`}>
                   <input
                     type="radio"
                     name="paymentMethod"
                     value="online"
                     checked={paymentMethod === 'online'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-3 text-primary-green bg-white focus:ring-primary-green"
+                    className="mr-3 w-4 h-4 text-primary-green focus:ring-primary-green"
                   />
                   <div>
                     <div className="font-medium text-black-900">Pay Online</div>
                     <div className="text-sm text-black-500">Pay now with card, Apple Pay, or Google Pay</div>
                   </div>
                 </label>
-                
-                <label className="flex items-center bg-white p-4 border-2 rounded-2xl cursor-pointer hover:bg-white/50 transition-colors border-black-200">
+
+                <label className={`flex items-center bg-white p-4 border-2 rounded-2xl cursor-pointer hover:bg-white/80 transition-colors ${
+                  paymentMethod === 'instore' ? 'border-primary-green ring-2 ring-primary-green' : 'border-black-200'
+                }`}>
                   <input
                     type="radio"
                     name="paymentMethod"
                     value="instore"
                     checked={paymentMethod === 'instore'}
                     onChange={(e) => setPaymentMethod(e.target.value)}
-                    className="mr-3 text-primary-green bg-white focus:ring-primary-green"
+                    className="mr-3 w-4 h-4 text-primary-green focus:ring-primary-green"
                   />
                   <div>
                     <div className="font-medium text-black-900">Pay In-Store</div>

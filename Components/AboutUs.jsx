@@ -61,10 +61,7 @@ export default function AboutUs(){
                   </p>
                 </div>
 
-                {/* Learn More Button */}
-                <button className="inline-flex items-center justify-center w-34 h-12 px-5 py-3 border border-primary-green bg-white text-primary-green rounded-full font-medium text-base hover:bg-primary-green hover:text-white transition-colors">
-                  Learn More
-                </button>
+               
               </div>
             </div>
           </div>

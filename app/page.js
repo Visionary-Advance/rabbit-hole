@@ -12,6 +12,7 @@ import Image from "next/image";
 import CTA from '../Components/CTA';
 import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
+import Link from 'next/link';
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -43,41 +44,44 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
         {/* Navigation */}
-       <Header />
+       <Header
+         cartItemCount={cartItemCount}
+         onCartClick={() => setIsCartOpen(true)}
+       />
 
         {/* Hero Background Image */}
-        <div className="absolute w-[97%] left-1/2 -translate-x-1/2 inset-0 z-0">
+        <div className="absolute w-full md:w-[97%] md:left-1/2 md:-translate-x-1/2 inset-0 z-0">
           <Image
             src="https://api.builder.io/api/v1/image/assets/TEMP/51af8464867a420b04c85c9ef60d048c9ef62263?width=2720"
             alt="Bubble tea background"
             fill
-            className="object-cover rounded-3xl md:rounded-[2rem]"
-            style={{ objectPosition: 'center' }}
+            className="object-cover md:rounded-3xl md:rounded-[2rem]"
+            style={{ objectPosition: 'center top' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 rounded-3xl md:rounded-[2rem]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:rounded-3xl md:rounded-[2rem]"></div>
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 w-full lg:w-1/2  justify-center flex items-center pt-12 pb-26">
+        <div className="relative z-10 w-full lg:w-1/2 justify-center flex items-center pt-12 pb-26">
         <div className='absolute w-full top-20 right-0'>
-          <Image 
+          <Image
           src={"/Img/Boba.png"}
           alt='Boba for bubble tea'
           fill
           className='absolute w-20 h-20'
           />
         </div>
-          <div className="max-w-xl ">
+          <div className="max-w-xl">
             <div className="relative mb-6 h-87">
               <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
                 Eugene&apos;s<br />
                 Bubble Tea
               </h1>
-              
+
               <div className="absolute font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl text-white lg:top-[81%] lg:left-[48%] lg:-translate-x-1/2 lg:-translate-y-1/2">
                 Spot
               </div>
-              
+
               <Image
                 src="/Img/Rabbit1.jpg"
                 alt="Person enjoying bubble tea"
@@ -96,14 +100,18 @@ export default function Home() {
             <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
               Freshly brewed. Made with love
             </p>
-            
-            <div className=" p-4 bg-black/80 backdrop-blur-sm flex flex-col gap-3 sm:relative sm:bg-transparent sm:backdrop-blur-none sm:p-0 sm:flex-row sm:gap-5">
+
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col gap-3 w-[calc(100%-3rem)] sm:relative sm:bottom-auto sm:left-auto sm:translate-x-0 sm:flex-row sm:gap-5 sm:w-auto">
+              <a href='#menu'>
               <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
                 Order Online
               </button>
+              </a>
+               <a href='#menu'>
               <button className="border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
                 View Menu
               </button>
+              </a>
             </div>
           </div>
         </div>

@@ -18,15 +18,26 @@ export default function SquarePaymentForm({
   const isInitialized = useRef(false);
 
   useEffect(() => {
+    // Don't initialize if required props are missing
+    if (!applicationId || !locationId) {
+      console.log('Missing required props:', { applicationId, locationId });
+      return;
+    }
+
     if (isInitialized.current) return;
     isInitialized.current = true;
 
     const initializeSquare = async () => {
       if (!window.Square) {
         const script = document.createElement('script');
-        script.src = 'https://sandbox.web.squarecdn.com/v1/square.js';
+        // Use production CDN instead of sandbox
+        script.src = 'https://web.squarecdn.com/v1/square.js';
         script.async = true;
         script.onload = () => initPayments();
+        script.onerror = (error) => {
+          console.error('Failed to load Square SDK:', error);
+          setErrorMessage('Failed to load payment form. Please refresh the page.');
+        };
         document.body.appendChild(script);
       } else {
         initPayments();
@@ -35,6 +46,10 @@ export default function SquarePaymentForm({
 
     const initPayments = async () => {
       try {
+        if (!applicationId || !locationId) {
+          throw new Error('Missing Square configuration');
+        }
+
         const paymentsInstance = window.Square.payments(applicationId, locationId);
         setPayments(paymentsInstance);
 
@@ -111,7 +126,16 @@ export default function SquarePaymentForm({
         }
       } catch (error) {
         console.error('Failed to initialize Square:', error);
-        setErrorMessage('Failed to load payment form. Please refresh the page.');
+        let errorMsg = 'Failed to load payment form. Please refresh the page.';
+
+        if (error.message?.includes('Invalid Application ID')) {
+          errorMsg = 'Payment configuration error. Please contact support.';
+        } else if (error.message?.includes('Invalid Location ID')) {
+          errorMsg = 'Location configuration error. Please contact support.';
+        }
+
+        setErrorMessage(errorMsg);
+        isInitialized.current = false; // Allow retry
       }
     };
 
@@ -133,7 +157,14 @@ export default function SquarePaymentForm({
     };
 
     initializeSquare();
-  }, [applicationId, locationId, amount, onPaymentSuccess]);
+
+    // Cleanup function
+    return () => {
+      if (card) {
+        card.destroy?.();
+      }
+    };
+  }, [applicationId, locationId, amount]);
 
   const handleCardPayment = async (e) => {
     e.preventDefault();

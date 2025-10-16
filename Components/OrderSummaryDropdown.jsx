@@ -39,9 +39,7 @@ const OrderSummaryDropdown = ({ cartItems, calculateSubtotal, calculateTip }) =>
               <div className="divide-y divide-black-200">
                 {cartItems.map(item => (
                   <div key={`${item.id}-${item.size}-${item.temperature}`} className="py-4 flex">
-                    <div className="h-16 w-16 rounded-full overflow-hidden mr-4 bg-black-200 flex-shrink-0">
-                      <img src={item.img} alt={item.name} className="h-full w-full object-cover" />
-                    </div>
+                   
 
                     <div className="flex-grow">
                       <div className="flex justify-between mb-1">
