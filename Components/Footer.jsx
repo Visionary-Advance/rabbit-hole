@@ -1,5 +1,6 @@
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer(){
 
@@ -26,12 +27,13 @@ export default function Footer(){
 
               {/* Social Media Icons */}
               <div className="flex items-center gap-2">
-                <a href="#" className="w-10 h-10 rounded-full bg-primary-green flex items-center justify-center hover:bg-opacity-90 transition-colors">
+                
+                <Link href={"https://www.facebook.com/TheRabbitHoleTea/"} className="w-10 h-10 rounded-full bg-primary-green flex items-center justify-center hover:bg-opacity-90 transition-colors">
                   <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
                     <path d="M8.01573 11.2917C7.93723 11.2917 6.29047 11.2922 5.53097 11.2915C5.13997 11.2912 5.00047 11.1507 5.00047 10.7572C4.99984 9.74645 4.99984 8.7357 5.00047 7.72494C5.00072 7.33644 5.14822 7.18819 5.53422 7.18794C6.29372 7.18744 7.93148 7.18769 8.01573 7.18769V4.98718C8.01623 3.99367 8.19348 3.04267 8.69824 2.17191C9.21499 1.28066 9.96699 0.670157 10.9307 0.317156C11.548 0.0909046 12.1888 0.000654265 12.8438 0.000154263C13.6633 -0.00034574 14.4828 0.000404256 15.3025 0.00190426C15.6548 0.00240427 15.811 0.158155 15.8118 0.512907C15.8133 1.46366 15.8133 2.41442 15.8118 3.36492C15.8113 3.72342 15.6615 3.86742 15.3013 3.87142C14.6295 3.87867 13.9573 3.87417 13.2863 3.90117C12.6085 3.90117 12.252 4.23217 12.252 4.93368C12.2358 5.67568 12.2453 6.41844 12.2453 7.18744C12.3088 7.18744 14.2375 7.18719 15.139 7.18744C15.5485 7.18744 15.6885 7.32819 15.6885 7.73994C15.6885 8.7452 15.6883 9.7507 15.6875 10.756C15.6873 11.1617 15.5558 11.2912 15.1438 11.2915C14.2423 11.292 12.321 11.2917 12.237 11.2917V19.428C12.237 19.8617 12.1005 20 11.6725 20H8.54174C8.16348 20 8.01598 19.853 8.01598 19.4747L8.01573 11.2917Z" fill="#171B26"/>
                   </svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full border border-primary-green flex items-center justify-center hover:bg-primary-green hover:border-primary-green transition-colors group">
+                </Link>
+                <Link href={"https://www.instagram.com/therabbitholetea/?hl=en"} className="w-10 h-10 rounded-full border border-primary-green flex items-center justify-center hover:bg-primary-green hover:border-primary-green transition-colors group">
                   <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
                     <g clipPath="url(#clip0_instagram)">
                       <path d="M15 0H5C2.2 0 0 2.2 0 5V15C0 17.8 2.2 20 5 20H15C17.8 20 20 17.8 20 15V5C20 2.2 17.8 0 15 0ZM18 15C18 16.7 16.7 18 15 18H5C3.3 18 2 16.7 2 15V5C2 3.3 3.3 2 5 2H15C16.7 2 18 3.3 18 5V15Z" fill="#88AD89" className="group-hover:fill-black-900"/>
@@ -44,21 +46,8 @@ export default function Footer(){
                       </clipPath>
                     </defs>
                   </svg>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full border border-primary-green flex items-center justify-center hover:bg-primary-green hover:border-primary-green transition-colors group">
-                  <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
-                    <g clipPath="url(#clip0_linkedin)">
-                      <path d="M19.9951 20.0008L20.0001 20V12.665C20.0001 9.07667 19.2276 6.3125 15.0326 6.3125C13.0159 6.3125 11.6626 7.41917 11.1101 8.46833H11.0517V6.6475H7.07422V20H11.2159V13.3883C11.2159 11.6475 11.5459 9.96417 13.7017 9.96417C15.8259 9.96417 15.8576 11.9508 15.8576 13.5V20.0008H19.9951Z" fill="#88AD89" className="group-hover:fill-black-900"/>
-                      <path d="M0.330078 6.64844H4.47675V20.0009H0.330078V6.64844Z" fill="#88AD89" className="group-hover:fill-black-900"/>
-                      <path d="M2.40167 0C1.07583 0 0 1.07583 0 2.40167C0 3.7275 1.07583 4.82583 2.40167 4.82583C3.7275 4.82583 4.80333 3.7275 4.80333 2.40167C4.8025 1.07583 3.72667 0 2.40167 0Z" fill="#88AD89" className="group-hover:fill-black-900"/>
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_linkedin">
-                        <rect width="20" height="20" fill="white"/>
-                      </clipPath>
-                    </defs>
-                  </svg>
-                </a>
+                </Link>
+                
               </div>
             </div>
 
