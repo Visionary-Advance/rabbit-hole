@@ -2,42 +2,51 @@ import { NextResponse } from 'next/server';
 import { SquareClient, SquareEnvironment } from 'square';
 import { getSquareAuth, getLocationId } from '@/lib/square-auth';
 
+// In-memory cache with TTL
+let cache = null;
+let cacheTimestamp = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 export async function GET() {
   try {
+    // Check cache first
+    const now = Date.now();
+    if (cache && (now - cacheTimestamp) < CACHE_TTL) {
+      console.log('✅ Returning cached menu items (age:', Math.round((now - cacheTimestamp) / 1000), 'seconds)');
+      return NextResponse.json(cache);
+    }
+
     console.log('🔍 Fetching Square items for Rabbit Hole...');
-    
+
     // Get auth credentials from Supabase (will auto-refresh if needed)
     const auth = await getSquareAuth();
-    
+
     console.log('✅ Retrieved auth for:', auth.restaurantName);
-    console.log('📍 Location ID:', auth.locationId);
-    console.log('🔑 Token expires at:', auth.expiresAt);
-    
+
     // Check if token needs refresh (expired or expiring in next 5 days)
     const expiresAt = new Date(auth.expiresAt);
     const fiveDaysFromNow = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
-    
+
     let accessToken = auth.accessToken;
-    
+
     if (expiresAt <= fiveDaysFromNow) {
       console.log('⚠️ Token expired or expiring soon, refreshing...');
-      // Import the refresh function
       const { refreshSquareToken } = await import('@/lib/square-auth-refresh');
       accessToken = await refreshSquareToken(process.env.RABBIT_HOLE_CLIENT_ID);
       console.log('✅ Token refreshed successfully');
     }
-    
+
     // Initialize Square client with valid token
     const client = new SquareClient({
-      environment: process.env.SQUARE_ENVIRONMENT === 'production' 
-        ? SquareEnvironment.Production 
+      environment: process.env.SQUARE_ENVIRONMENT === 'production'
+        ? SquareEnvironment.Production
         : SquareEnvironment.Sandbox,
       token: accessToken,
     });
 
     console.log('📡 Fetching catalog from Square...');
 
-    // Fetch ALL catalog objects with pagination
+    // Fetch ALL catalog objects with pagination - use Promise.all for parallel requests if possible
     let allObjects = [];
     let cursor = undefined;
     let pageCount = 0;
@@ -54,7 +63,7 @@ export async function GET() {
       allObjects = allObjects.concat(objects);
       pageCount++;
 
-      console.log(`📄 Page ${pageCount}: Retrieved ${objects.length} objects, cursor: ${cursor ? 'exists' : 'none'}`);
+      console.log(`📄 Page ${pageCount}: Retrieved ${objects.length} objects`);
     } while (cursor);
 
     console.log(`✅ Retrieved ${allObjects.length} total catalog objects across ${pageCount} pages`);
@@ -66,24 +75,7 @@ export async function GET() {
     const modifierLists = result.filter(obj => obj.type === 'MODIFIER_LIST');
     const modifiers = result.filter(obj => obj.type === 'MODIFIER');
 
-    console.log('📦 Items:', items.length);
-    console.log('🖼️ Images:', images.length);
-    console.log('📝 Modifier Lists:', modifierLists.length);
-    console.log('🔧 Modifiers:', modifiers.length);
-
-    // Debug: Show what types we actually got
-    const typeCount = {};
-    result.forEach(obj => {
-      typeCount[obj.type] = (typeCount[obj.type] || 0) + 1;
-    });
-    console.log('🔍 All object types in response:', typeCount);
-
-    // Debug: Show modifier list names if any
-    if (modifierLists.length > 0) {
-      console.log('🔍 Modifier list names:', modifierLists.map(ml => ml.modifierListData?.name || ml.modifier_list_data?.name || 'Unnamed'));
-    } else {
-      console.log('⚠️ No MODIFIER_LIST objects found in catalog response!');
-    }
+    console.log('📦 Processing:', items.length, 'items,', modifierLists.length, 'modifier lists,', modifiers.length, 'modifiers');
 
     const categoryMap = {};
     result.forEach(obj => {
@@ -108,14 +100,6 @@ export async function GET() {
       const name = list.modifierListData?.name || 'Unnamed Group';
       const mods = list.modifierListData?.modifiers || [];
 
-      console.log(`🔧 Processing modifier list "${name}" (ID: ${list.id}):`, {
-        modifierCount: mods.length,
-        modifiers: mods.map(m => ({
-          id: m.modifierId || m.id || m.modifier_id,
-          hasData: !!m.modifierData
-        }))
-      });
-
       const modifierObjects = mods.map(ref => {
         const possibleId = ref.modifierId || ref.id || ref.modifier_id;
 
@@ -136,11 +120,7 @@ export async function GET() {
         name,
         modifiers: modifierObjects
       };
-
-      console.log(`✅ Modifier list "${name}" has ${modifierObjects.length} modifiers`);
     }
-
-    console.log(`📊 Total modifier lists in map: ${Object.keys(modifierMap).length}`);
 
     const imageMap = {};
     for (const image of images) {
@@ -172,21 +152,9 @@ export async function GET() {
         .map(info => {
           // Try both camelCase and snake_case
           const listId = info.modifierListId || info.modifier_list_id;
-          const found = modifierMap[listId];
-
-          if (!found && modifierListInfo.length > 0) {
-            console.log(`⚠️ Modifier list ${listId} not found for item "${item.itemData?.name}"`);
-          }
-
-          return found;
+          return modifierMap[listId];
         })
         .filter(Boolean);
-
-      if (attachedModifierLists.length > 0) {
-        console.log(`✅ Item "${item.itemData?.name}" has ${attachedModifierLists.length} modifier lists:`,
-          attachedModifierLists.map(ml => ml.name)
-        );
-      }
 
       return {
         id: item.id,
@@ -203,14 +171,22 @@ export async function GET() {
 
     console.log('✅ Processed', filteredItems.length, 'menu items');
 
-    return NextResponse.json({ 
+    // Prepare response
+    const responseData = {
       items: filteredItems,
       metadata: {
         restaurantName: auth.restaurantName,
         locationId: auth.locationId,
         itemCount: filteredItems.length
       }
-    });
+    };
+
+    // Cache the result
+    cache = responseData;
+    cacheTimestamp = Date.now();
+    console.log('💾 Cached menu items for', CACHE_TTL / 1000, 'seconds');
+
+    return NextResponse.json(responseData);
 
   } catch (error) {
     console.error('❌ Square API Error:', error);
