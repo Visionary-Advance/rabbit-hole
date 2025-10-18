@@ -36,14 +36,30 @@ export async function GET() {
     });
 
     console.log('📡 Fetching catalog from Square...');
-    
-    const rawResponse = await client.catalog.list({
-      types: "ITEM,IMAGE,CATEGORY,MODIFIER_LIST,MODIFIER",
-    });
 
-    const result = rawResponse.response?.objects || rawResponse.data || [];
-    
-    console.log('✅ Retrieved', result.length, 'catalog objects');
+    // Fetch ALL catalog objects with pagination
+    let allObjects = [];
+    let cursor = undefined;
+    let pageCount = 0;
+
+    do {
+      const rawResponse = await client.catalog.list({
+        types: "ITEM,IMAGE,CATEGORY,MODIFIER_LIST,MODIFIER",
+        cursor: cursor,
+      });
+
+      const objects = rawResponse.result?.objects || rawResponse.response?.objects || rawResponse.data || [];
+      cursor = rawResponse.result?.cursor || rawResponse.response?.cursor || null;
+
+      allObjects = allObjects.concat(objects);
+      pageCount++;
+
+      console.log(`📄 Page ${pageCount}: Retrieved ${objects.length} objects, cursor: ${cursor ? 'exists' : 'none'}`);
+    } while (cursor);
+
+    console.log(`✅ Retrieved ${allObjects.length} total catalog objects across ${pageCount} pages`);
+
+    const result = allObjects;
 
     const items = result.filter(obj => obj.type === 'ITEM');
     const images = result.filter(obj => obj.type === 'IMAGE');
@@ -54,6 +70,20 @@ export async function GET() {
     console.log('🖼️ Images:', images.length);
     console.log('📝 Modifier Lists:', modifierLists.length);
     console.log('🔧 Modifiers:', modifiers.length);
+
+    // Debug: Show what types we actually got
+    const typeCount = {};
+    result.forEach(obj => {
+      typeCount[obj.type] = (typeCount[obj.type] || 0) + 1;
+    });
+    console.log('🔍 All object types in response:', typeCount);
+
+    // Debug: Show modifier list names if any
+    if (modifierLists.length > 0) {
+      console.log('🔍 Modifier list names:', modifierLists.map(ml => ml.modifierListData?.name || ml.modifier_list_data?.name || 'Unnamed'));
+    } else {
+      console.log('⚠️ No MODIFIER_LIST objects found in catalog response!');
+    }
 
     const categoryMap = {};
     result.forEach(obj => {
@@ -78,6 +108,14 @@ export async function GET() {
       const name = list.modifierListData?.name || 'Unnamed Group';
       const mods = list.modifierListData?.modifiers || [];
 
+      console.log(`🔧 Processing modifier list "${name}" (ID: ${list.id}):`, {
+        modifierCount: mods.length,
+        modifiers: mods.map(m => ({
+          id: m.modifierId || m.id || m.modifier_id,
+          hasData: !!m.modifierData
+        }))
+      });
+
       const modifierObjects = mods.map(ref => {
         const possibleId = ref.modifierId || ref.id || ref.modifier_id;
 
@@ -98,7 +136,11 @@ export async function GET() {
         name,
         modifiers: modifierObjects
       };
+
+      console.log(`✅ Modifier list "${name}" has ${modifierObjects.length} modifiers`);
     }
+
+    console.log(`📊 Total modifier lists in map: ${Object.keys(modifierMap).length}`);
 
     const imageMap = {};
     for (const image of images) {
@@ -123,9 +165,28 @@ export async function GET() {
       const price = variations[0]?.price || null;
       const currency = variations[0]?.currency || '';
 
-      const attachedModifierLists = (item.itemData?.modifierListInfo || [])
-        .map(info => modifierMap[info.modifierListId])
+      // Attach modifier lists to items
+      const modifierListInfo = item.itemData?.modifierListInfo || [];
+
+      const attachedModifierLists = modifierListInfo
+        .map(info => {
+          // Try both camelCase and snake_case
+          const listId = info.modifierListId || info.modifier_list_id;
+          const found = modifierMap[listId];
+
+          if (!found && modifierListInfo.length > 0) {
+            console.log(`⚠️ Modifier list ${listId} not found for item "${item.itemData?.name}"`);
+          }
+
+          return found;
+        })
         .filter(Boolean);
+
+      if (attachedModifierLists.length > 0) {
+        console.log(`✅ Item "${item.itemData?.name}" has ${attachedModifierLists.length} modifier lists:`,
+          attachedModifierLists.map(ml => ml.name)
+        );
+      }
 
       return {
         id: item.id,
