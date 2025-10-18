@@ -62,7 +62,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 w-full lg:w-1/2 justify-center flex items-center pt-12 pb-26">
+        <div className="relative flex-1 z-10 w-full lg:w-1/2 justify-center flex flex-col lg:items-center pt-12 pb-32 lg:pb-26 px-6 lg:px-0">
         <div className='absolute w-full top-20 right-0'>
           <Image
           src={"/Img/Boba.png"}
@@ -71,7 +71,7 @@ export default function Home() {
           className='absolute w-20 h-20'
           />
         </div>
-          <div className="max-w-xl">
+          <div className="max-w-xl flex-1 flex flex-col justify-center">
             <div className="relative mb-6 h-87">
               <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
                 Eugene&apos;s<br />
@@ -87,32 +87,33 @@ export default function Home() {
                 alt="Person enjoying bubble tea"
                 width={112}
                 height={63}
-                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover top-[47%] left-[45%] lg:top-[73%] lg:left-[3%]"
+                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover top-[47%] left-[40%] lg:top-[73%] lg:left-[3%]"
               />
               <Image
                 src="/Img/Tea.jpg"
                 alt="Person with bubble tea"
                 width={124}
                 height={71}
-                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover top-[5%] right-[-12%] lg:top-[10%] lg:right-[-7%]"
+                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover top-[5%] right-[1%] lg:top-[10%] lg:right-[-7%]"
               />
             </div>
             <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
               Freshly brewed. Made with love
             </p>
+          </div>
 
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col gap-3 w-[calc(100%-3rem)] sm:relative sm:bottom-auto sm:left-auto sm:translate-x-0 sm:flex-row sm:gap-5 sm:w-auto">
-              <a href='#menu'>
-              <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors min-w-[150px]">
-                Order Online
-              </button>
-              </a>
-               <a href='#menu'>
-              <button className="border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
-                View Menu
-              </button>
-              </a>
-            </div>
+          {/* Buttons - Positioned at bottom on mobile for thumb-friendly access */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col gap-3 w-11/12 lg:relative lg:bottom-auto lg:left-auto lg:translate-x-7 lg:flex-row lg:gap-5 lg:max-w-xl">
+            <a href='#menu' className="w-full lg:w-auto">
+            <button className="w-full bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors lg:min-w-[150px]">
+              Order Online
+            </button>
+            </a>
+             <a href='#menu' className="w-full lg:w-auto">
+            <button className="w-full border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors lg:min-w-[150px]">
+              View Menu
+            </button>
+            </a>
           </div>
         </div>
       </section>

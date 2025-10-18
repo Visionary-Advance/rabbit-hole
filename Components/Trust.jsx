@@ -20,7 +20,7 @@ return(
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 my-10 mx-auto  w-9/12 ">
     {/* Experience */}
     <div className="text-center relative">
-      <div className="flex items-center justify-left gap-3 mb-5 px-5">
+      <div className="flex items-center justify-left gap-3 mb-5 ">
         <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
           <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
             <path d="M7.01246 12.975C6.04163 13.7375 5.41663 14.9208 5.41663 16.25V17.5H2.91663C2.22496 17.5 1.66663 16.9417 1.66663 16.25V15.4167C1.66663 13.8042 2.97079 12.5 4.58329 12.5H5.41663C6.00829 12.5 6.55413 12.675 7.01246 12.975Z" fill="#FBFBFB"/>

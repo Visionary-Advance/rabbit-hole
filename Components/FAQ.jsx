@@ -11,17 +11,17 @@ function FAQAccordion() {
     {
       id: 0,
       question: "What kind of drinks do you serve?",
-      answer: "We serve a wide variety of bubble tea drinks including classic milk teas, fruit teas, specialty signature drinks, and seasonal favorites. All made with premium ingredients and real fruit flavors."
+      answer: "We serve a wide variety of bubble tea drinks including classic milk teas, fruit teas, specialty signature drinks, and seasonal favorites. All made with premium ingredients."
     },
     {
       id: 1,
       question: "What are your opening hours?",
-      answer: "We're open Monday to Saturday from 11 AM to 9 PM, and Sunday from 12 PM to 7 PM. Come by any time during those hours for a sip!"
+      answer: "We're open Monday to Sunday from 11 AM to 8 PM. Come by any time during those hours for a sip!"
     },
     {
       id: 2,
       question: "Where are you located?",
-      answer: "You can find us at 240 E 17th Ave. Eugene, OR 97401. We're conveniently located in the heart of Eugene with easy parking available."
+      answer: "You can find us at 240 E 17th Ave. Eugene, OR 97401. We're conveniently located in the heart of Eugene."
     },
     {
       id: 3,
@@ -30,8 +30,8 @@ function FAQAccordion() {
     },
     {
       id: 4,
-      question: "Do you have dairy-free or vegan options?",
-      answer: "Absolutely! We offer a variety of dairy-free alternatives including oat milk, almond milk, and coconut milk. Many of our fruit teas are naturally vegan, and we can customize most drinks to meet your dietary preferences."
+      question: "Do you have dairy-free alternatives?",
+      answer: "Absolutely! We offer a variety of dairy-free alternatives. Many of our fruit teas are naturally vegan, and we can customize most drinks to meet your dietary preferences."
     }
   ];
 

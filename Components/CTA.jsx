@@ -9,18 +9,18 @@ import Image from "next/image";
     return(
 
 
-        <section className="relative translate-y-20 pt-5 px-6 md:px-16 lg:px-32 xl:px-36 overflow-">
+        <section className="relative lg:translate-y-20 translate-y-10 pt-5 px-6 md:px-16 lg:px-32 xl:px-36 overflow-">
         <div className="max-w-5xl mx-auto relative">
           {/* CTA Card */}
           <div className="relative bg-[#FFFAF4] rounded-[2.5rem] py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:px-16">
-            <div className="absolute bottom-0 right-0">
+            <div className="absolute bottom-0 right-0 z-0 pointer-events-none">
               <Image src={'/Img/Boba.png'} className="w-40" width={350} height={350} alt="Boba Pearls" />
             </div>
-            <div className="absolute bottom-0 left-0 rotate-y-180">
+            <div className="absolute bottom-0 left-0 rotate-y-180 z-0 pointer-events-none">
               <Image src={'/Img/Boba.png'} className="w-40" width={350} height={350} alt="Boba Pearls" />
             </div>
             {/* Decorative Bubble Tea Icons */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-[#FFF3B2] rounded-full flex items-center justify-center">
+            <div className="absolute -top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 lg:w-40 lg:h-40 bg-[#FFF3B2] rounded-full flex items-center justify-center">
               <div className="relative w-28 h-20">
                 <svg className="absolute left-0 top-0 w-20 h-20 -rotate-[10.853deg]" width="103" height="103" viewBox="0 0 103 103" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clipPath="url(#clip0_cta_1)">
@@ -82,18 +82,22 @@ import Image from "next/image";
             </div>
 
             {/* Content */}
-            <div className="flex flex-col items-center gap-10">
+            <div className="relative flex flex-col items-center gap-10 z-10">
               <h2 className="font-quicksand font-bold text-black-900 text-3xl md:text-4xl lg:text-5xl xl:text-[56px] leading-tight text-center max-w-xl">
                 Craving Something Sweet? Order Now!
               </h2>
 
-              <div className="flex flex-wrap items-center justify-center gap-5">
+              <div className="flex flex-wrap items-center justify-center gap-5 relative z-20">
+                <a href="#menu" className="relative z-20">
                 <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium text-base hover:bg-opacity-90 transition-colors min-w-[150px]">
                   Order Online
                 </button>
+                </a>
+                <a href="#menu" className="relative z-20">
                 <button className="border border-primary-green text-primary-green bg-white h-14 px-5 rounded-full font-medium text-base hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
                   View Menu
                 </button>
+                </a>
               </div>
             </div>
           </div>

@@ -64,11 +64,25 @@ export default function Reviews() {
   ];
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? reviews.length - 3 : prev - 1));
+    setCurrentIndex((prev) => {
+      // On desktop (showing 3 cards), limit to reviews.length - 3
+      // On mobile (showing 1 card), cycle through all reviews
+      if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+        return prev === 0 ? reviews.length - 3 : prev - 1;
+      }
+      return prev === 0 ? reviews.length - 1 : prev - 1;
+    });
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev >= reviews.length - 3 ? 0 : prev + 1));
+    setCurrentIndex((prev) => {
+      // On desktop (showing 3 cards), limit to reviews.length - 3
+      // On mobile (showing 1 card), cycle through all reviews
+      if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+        return prev >= reviews.length - 3 ? 0 : prev + 1;
+      }
+      return prev >= reviews.length - 1 ? 0 : prev + 1;
+    });
   };
 
   // Get visible reviews based on screen size

@@ -114,8 +114,8 @@ export default function Footer(){
             <div className="space-y-4">
               <h3 className="text-white font-bold text-2xl">Opening Hours</h3>
               <div className="flex flex-col gap-3">
-                <p className="text-black-300 text-base opacity-80">Monday - Friday: 7:00 AM - 8:00 PM</p>
-                <p className="text-black-300 text-base opacity-80">Saturday - Sunday: 8:00 AM - 6:00 PM</p>
+                <p className="text-black-300 text-base opacity-80">Monday - Friday: 11:00 AM - 8:00 PM</p>
+                <p className="text-black-300 text-base opacity-80">Saturday - Sunday: 11:00 AM - 8:00 PM</p>
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default function Footer(){
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6">
             <p className="text-black-300 text-base">Copyright © Rabbit Hole Tea Bar 2025</p>
-            <p className="text-black-300 text-base">Privacy Policy . Terms & Conditions</p>
+            <p className="text-black-300 text-base">Powered by <Link href={"https://visionaryadvance.com"} rel="nofollow" target="_blank">Visionary Advance</Link> </p>
           </div>
         </div>
       </footer>
