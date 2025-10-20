@@ -12,8 +12,46 @@ const quicksand = Quicksand({
 });
 
 export const metadata = {
-  title: "Eugene's Bubble Tea Spot",
-  description: "Freshly brewed bubble tea made with love. Experience our number-one bubble tea picks and favorites.",
+  title: "The Rabbit Hole Tea Bar | Eugene's Best Bubble Tea",
+  description: "Eugene's premier bubble tea shop on 17th Ave. Fresh boba, milk teas, fruit teas, and more. Order online for pickup. 8+ years serving Eugene, OR.",
+  keywords: "bubble tea Eugene, boba tea Eugene Oregon, milk tea, fruit tea, The Rabbit Hole, 17th Avenue",
+  authors: [{ name: "The Rabbit Hole Tea Bar" }],
+  openGraph: {
+    title: "The Rabbit Hole Tea Bar | Eugene's Best Bubble Tea",
+    description: "Fresh bubble tea made with love in Eugene, OR",
+    url: 'https://therabbitholeteabar.com',
+    siteName: 'The Rabbit Hole Tea Bar',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Rabbit Hole Tea Bar - Eugene Bubble Tea'
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "The Rabbit Hole Tea Bar | Eugene's Best Bubble Tea",
+    description: "Fresh bubble tea made with love in Eugene, OR",
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({ children }) {

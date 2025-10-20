@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function ContactForm({ 
   fromEmail = "noreply@mail.visionaryadvance.com",
-  toEmails = ["brandon@visionaryadvance.com"],
+  toEmails = ["TheRabbitHoletc@gmail.com"],
   subject = "New Contact Form Submission"
 }) {
   const [formData, setFormData] = useState({

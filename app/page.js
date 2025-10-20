@@ -13,6 +13,7 @@ import CTA from '../Components/CTA';
 import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
 import Link from 'next/link';
+import StructuredData from '@/Components/StructuredData';
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -41,6 +42,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black">
+      <StructuredData />
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
         {/* Navigation */}
