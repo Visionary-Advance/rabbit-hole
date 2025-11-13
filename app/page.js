@@ -12,7 +12,6 @@ import Image from "next/image";
 import CTA from '../Components/CTA';
 import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
-import Link from 'next/link';
 import StructuredData from '@/Components/StructuredData';
 import { useTranslation } from '@/app/i18n/client';
 
