@@ -106,7 +106,7 @@ export default function Home() {
                 className={`absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover ${
                   locale === 'zh'
                     ? 'top-[75%] left-[50%] lg:top-[80%] lg:left-[77%]'
-                    : 'top-[47%] left-[40%] lg:top-[73%] lg:left-[3%]'
+                    : 'top-[75%] left-[40%] lg:top-[73%] lg:left-[3%]'
                 }`}
               />
               <Image
