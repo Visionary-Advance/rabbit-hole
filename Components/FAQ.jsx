@@ -2,73 +2,54 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslation } from '@/app/i18n/client';
 
 // FAQ Accordion Component
 function FAQAccordion() {
+  const { t } = useTranslation();
   const [openItem, setOpenItem] = useState();
 
-  const faqItems = [
-    {
-      id: 0,
-      question: "What kind of drinks do you serve?",
-      answer: "We serve a wide variety of bubble tea drinks including classic milk teas, fruit teas, specialty signature drinks, and seasonal favorites. All made with premium ingredients."
-    },
-    {
-      id: 1,
-      question: "What are your opening hours?",
-      answer: "We're open Monday to Sunday from 11 AM to 8 PM. Come by any time during those hours for a sip!"
-    },
-    {
-      id: 2,
-      question: "Where are you located?",
-      answer: "You can find us at 240 E 17th Ave. Eugene, OR 97401. We're conveniently located in the heart of Eugene."
-    },
-    {
-      id: 3,
-      question: "Can I order online?",
-      answer: "Yes! We offer online ordering for pickup and delivery. You can place your order through our website or mobile app for a quick and convenient experience."
-    },
-    {
-      id: 4,
-      question: "Do you have dairy-free alternatives?",
-      answer: "Absolutely! We offer a variety of dairy-free alternatives. Many of our fruit teas are naturally vegan, and we can customize most drinks to meet your dietary preferences."
-    }
-  ];
+  const faqItems = t('faq.items', { returnObjects: true });
 
   const toggleItem = (id) => {
     setOpenItem(openItem === id ? null : id);
   };
 
+  // Add safety check for faqItems
+  if (!Array.isArray(faqItems)) {
+    return null;
+  }
+
   return (
     <div id="faq" className="space-y-5">
-      {faqItems.map((item) => (
+      {faqItems.map((item, index) => (
         <div
-          key={item.id}
+          key={index}
           className={`relative overflow-visible transition-all duration-700 ease-out ${
-            openItem === item.id ? 'transform-gpu' : ''
+            openItem === index ? 'transform-gpu' : ''
           }`}
         >
           {/* Morphing container */}
           <div
             className={`relative overflow-hidden transition-all duration-700 ease-out transform-gpu ${
-              openItem === item.id
+              openItem === index
                 ? 'bg-orange-50 border border-primary-green hover:scale-100'
                 : 'bg-transparent border border-black-200 hover:border-primary-green hover:scale-[1.02]'
             }`}
             style={{
-              borderRadius: openItem === item.id ? '16px' : '50px',
-              minHeight: openItem === item.id ? 'auto' : '60px',
+              borderRadius: openItem === index ? '16px' : '50px',
+              minHeight: openItem === index ? 'auto' : '60px',
               transformOrigin: 'center center'
             }}
           >
             {/* Question */}
             <button
-              onClick={() => toggleItem(item.id)}
+              onClick={() => toggleItem(index)}
               className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none transition-all duration-300 ease-in-out"
             >
               <span
                 className={`text-lg md:text-xl font-medium leading-relaxed transition-all duration-300 ease-in-out ${
-                  openItem === item.id ? 'text-black-900 font-bold' : 'text-black-500'
+                  openItem === index ? 'text-black-900 font-bold' : 'text-black-500'
                 }`}
               >
                 {item.question}
@@ -76,7 +57,7 @@ function FAQAccordion() {
 
               <div className="flex-shrink-0 ml-6">
                 <div className="transform transition-transform duration-300 ease-in-out">
-                  {openItem === item.id ? (
+                  {openItem === index ? (
                     <svg className="w-5 h-5 rotate-0" viewBox="0 0 20 20" fill="none">
                       <path d="M16.6666 10H3.33331" stroke="#FBFBFB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
@@ -90,9 +71,9 @@ function FAQAccordion() {
             </button>
 
             {/* Answer - grows with the bubble */}
-            <div 
+            <div
               className={`overflow-hidden transition-all duration-700 ease-out ${
-                openItem === item.id 
+                openItem === index 
                   ? 'max-h-96 opacity-100' 
                   : 'max-h-0 opacity-0'
               }`}
@@ -112,6 +93,8 @@ function FAQAccordion() {
 
 // Main FAQ Section Component
 export default function FAQSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-16 md:py-20 lg:py-24 px-6 md:px-16 lg:px-32 xl:px-36 bg-black">
       <div className="max-w-7xl mx-auto">
@@ -119,7 +102,7 @@ export default function FAQSection() {
           {/* Left Column - Title and Image */}
           <div className="space-y-12">
             <h2 className="font-quicksand font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-tight">
-              Frequently Asked Questions
+              {t('faq.title')}
             </h2>
             
             <div className="relative">

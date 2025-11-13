@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import AboutUs from "@/Components/AboutUs";
 import Contact from "@/Components/Contact";
 import FAQAccordion from "@/Components/FAQ";
@@ -9,7 +10,7 @@ import Trust from "@/Components/Trust";
 import Menu from "@/Components/Menu";
 import Cart from "@/Components/Cart";
 import Image from "next/image";
-import CTA from '../Components/CTA';
+import CTA from '../../Components/CTA';
 import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
 import Link from 'next/link';
@@ -17,6 +18,8 @@ import StructuredData from '@/Components/StructuredData';
 import { useTranslation } from '@/app/i18n/client';
 
 export default function Home() {
+  const params = useParams();
+  const locale = params?.locale || 'en';
   const { t } = useTranslation();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -66,7 +69,7 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative flex-1 z-10 w-full lg:w-1/2 justify-center flex flex-col lg:items-center pt-12 pb-32 lg:pb-26 px-6 lg:px-0">
+        <div className="relative flex-1 z-10 w-full lg:w-1/2 justify-left flex flex-col lg:items-center pt-12 pb-32 lg:pb-26 px-6 lg:px-0">
         <div className='absolute w-full top-20 right-0'>
           <Image
           src={"/Img/Boba.png"}
@@ -75,14 +78,23 @@ export default function Home() {
           className='absolute w-20 h-20'
           />
         </div>
-          <div className="max-w-xl flex-1 flex flex-col justify-center">
-            <div className="relative mb-6 h-87">
-              <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
+          <div className={`max-w-2xl flex-1 flex flex-col justify-center 
+          ${locale === "zh" 
+            ?  'max-w-2xl'
+            :'max-w-3xl'
+          }`}>
+            <div className="relative mb-6 lg:h-87">
+              <h1 className="font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
                 {t('hero.title_line1')}<br />
-                {t('hero.title_line2')}
+                {t('hero.title_line2')}<br />
+                <span className="lg:hidden">{t('hero.title_line3')}</span>
               </h1>
 
-              <div className="absolute font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl text-white lg:top-[81%] lg:left-[48%] lg:-translate-x-1/2 lg:-translate-y-1/2">
+              <div className={`hidden lg:block absolute font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl text-white left-0 
+                ${locale === "zh"
+                  ? 'top-[72%]'
+                  : 'top-[68%] left-[30%]'
+                }`}>
                 {t('hero.title_line3')}
               </div>
 
@@ -91,17 +103,25 @@ export default function Home() {
                 alt="Person enjoying bubble tea"
                 width={112}
                 height={63}
-                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover top-[47%] left-[40%] lg:top-[73%] lg:left-[3%]"
+                className={`absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover ${
+                  locale === 'zh'
+                    ? 'top-[75%] left-[50%] lg:top-[80%] lg:left-[77%]'
+                    : 'top-[47%] left-[40%] lg:top-[73%] lg:left-[3%]'
+                }`}
               />
               <Image
                 src="/Img/Tea.jpg"
                 alt="Person with bubble tea"
                 width={124}
                 height={71}
-                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover top-[5%] right-[1%] lg:top-[10%] lg:right-[-7%]"
+                className={`absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover ${
+                  locale === 'zh'
+                    ? 'top-[5%] right-[10%] lg:top-[10%] lg:-right-[36%]'
+                    : 'top-[5%] right-[1%] lg:top-[10%] lg:right-[-7%]'
+                }`}
               />
             </div>
-            <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
+            <p className="block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
               {t('hero.subtitle')}
             </p>
           </div>

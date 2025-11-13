@@ -1,8 +1,12 @@
+'use client'
+
 import Image from "next/image";
 import ContactForm from "./ContactForm";
+import { useTranslation } from '@/app/i18n/client';
 
 
 export default function Contact(){
+  const { t } = useTranslation();
 
 
 
@@ -21,10 +25,10 @@ export default function Contact(){
           {/* Header */}
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="font-quicksand font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
-              Find or Message Us
+              {t('contact.title')}
             </h2>
             <p className="text-black-200 text-base leading-relaxed max-w-lg mx-auto">
-              Something for everyone. Milk teas, fruit teas, toppings & more.
+              {t('contact.subtitle')}
             </p>
           </div>
 
@@ -40,7 +44,7 @@ export default function Contact(){
                     <path d="M24.5 13.125H26.25C26.2465 10.1092 25.047 7.21797 22.9145 5.0855C20.782 2.95302 17.8908 1.75347 14.875 1.75V3.5C17.4268 3.50301 19.8732 4.51804 21.6776 6.32242C23.482 8.12681 24.497 10.5732 24.5 13.125Z" fill="#171B26"/>
                   </svg>
                 </div>
-                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">Phone</h3>
+                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">{t('contact.phone')}</h3>
               </div>
               <p className="text-black-700 text-lg md:text-xl lg:text-2xl font-medium">
                 (541) 654-0425
@@ -65,7 +69,7 @@ export default function Contact(){
                     </defs>
                   </svg>
                 </div>
-                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">Email</h3>
+                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">{t('contact.email')}</h3>
               </div>
               <p className="text-black-700 text-lg md:text-xl lg:text-2xl font-medium">
                 TheRabbitHoletc@gmail.com
@@ -88,7 +92,7 @@ export default function Contact(){
                     </defs>
                   </svg>
                 </div>
-                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">Location</h3>
+                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">{t('contact.location')}</h3>
               </div>
               <p className="text-black-700 text-lg md:text-xl lg:text-2xl font-medium">
                 240 E 17th Ave. Eugene, OR 97401
@@ -103,10 +107,10 @@ export default function Contact(){
                     <path d="M22.1667 5.63225V3.5C22.7853 3.49938 23.3784 3.25335 23.8159 2.8159C24.2534 2.37845 24.4994 1.78532 24.5 1.16667V0.583333C24.5 0.506716 24.485 0.430842 24.4557 0.360049C24.4264 0.289255 24.3834 0.224932 24.3292 0.170755C24.2751 0.116579 24.2107 0.0736126 24.14 0.0443131C24.0692 0.0150136 23.9933 -4.43783e-05 23.9167 9.82396e-08H4.08333C4.00672 -4.43783e-05 3.93084 0.0150136 3.86005 0.0443131C3.78926 0.0736126 3.72493 0.116579 3.67076 0.170755C3.61658 0.224932 3.57361 0.289255 3.54431 0.360049C3.51501 0.430842 3.49996 0.506716 3.5 0.583333V1.16667C3.50062 1.78532 3.74665 2.37845 4.1841 2.8159C4.62155 3.25335 5.21468 3.49938 5.83333 3.5V5.63225C5.82739 6.75366 6.04458 7.86505 6.47226 8.90172C6.89993 9.93839 7.52955 10.8796 8.32446 11.6707L10.7131 14L8.32446 16.3293C7.52955 17.1204 6.89993 18.0616 6.47226 19.0983C6.04458 20.135 5.82739 21.2463 5.83333 22.3678V24.5C5.21468 24.5006 4.62155 24.7466 4.1841 25.1841C3.74665 25.6215 3.50062 26.2147 3.5 26.8333V27.4167C3.49996 27.4933 3.51501 27.5692 3.54431 27.64C3.57361 27.7107 3.61658 27.7751 3.67076 27.8292C3.72493 27.8834 3.78926 27.9264 3.86005 27.9557C3.93084 27.985 4.00672 28 4.08333 28H23.9167C23.9933 28 24.0692 27.985 24.14 27.9557C24.2107 27.9264 24.2751 27.8834 24.3292 27.8292C24.3834 27.7751 24.4264 27.7107 24.4557 27.64C24.485 27.5692 24.5 27.4933 24.5 27.4167V26.8333C24.4994 26.2147 24.2534 25.6215 23.8159 25.1841C23.3784 24.7466 22.7853 24.5006 22.1667 24.5V22.3678C22.1726 21.2463 21.9554 20.135 21.5277 19.0983C21.1001 18.0616 20.4704 17.1204 19.6755 16.3293L17.2869 14L19.6755 11.6707C20.4704 10.8796 21.1001 9.93839 21.5277 8.90172C21.9554 7.86505 22.1726 6.75366 22.1667 5.63225Z" fill="#171B26"/>
                   </svg>
                 </div>
-                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">Opening Hours</h3>
+                <h3 className="font-semibold text-black-900 text-2xl md:text-3xl lg:text-4xl">{t('contact.opening_hours')}</h3>
               </div>
               <p className="text-black-700 text-lg md:text-xl lg:text-2xl font-medium">
-                Monday - Friday: 7:00 AM - 8:00 PM
+                {t('contact.hours_detail')}
               </p>
             </div>
           </div>

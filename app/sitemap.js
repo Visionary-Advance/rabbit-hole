@@ -9,6 +9,30 @@ export default function sitemap() {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
+      alternates: {
+        languages: {
+          en: baseUrl,
+          zh: `${baseUrl}/zh`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/zh`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1.0,
+      alternates: {
+        languages: {
+          en: baseUrl,
+          zh: `${baseUrl}/zh`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/checkout`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
   ];
 }

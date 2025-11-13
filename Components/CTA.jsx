@@ -1,8 +1,12 @@
-import Image from "next/image";
+'use client'
 
- 
- 
+import Image from "next/image";
+import { useTranslation } from '@/app/i18n/client';
+
+
+
  export default function CTA(){
+  const { t } = useTranslation();
 
 
 
@@ -83,19 +87,22 @@ import Image from "next/image";
 
             {/* Content */}
             <div className="relative flex flex-col items-center gap-10 z-10">
-              <h2 className="font-quicksand font-bold text-black-900 text-3xl md:text-4xl lg:text-5xl xl:text-[56px] leading-tight text-center max-w-xl">
-                Craving Something Sweet? Order Now!
+              <h2 className="font-quicksand font-bold text-black-900 text-3xl md:text-4xl lg:text-5xl xl:text-[56px] leading-tight text-center max-2xl">
+                {t('cta.title')}
               </h2>
+              <p className="text-black-700 text-lg md:text-xl text-center max-w-2xl">
+                {t('cta.subtitle')}
+              </p>
 
               <div className="flex flex-wrap items-center justify-center gap-5 relative z-20">
                 <a href="#menu" className="relative z-20">
                 <button className="bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium text-base hover:bg-opacity-90 transition-colors min-w-[150px]">
-                  Order Online
+                  {t('cta.button')}
                 </button>
                 </a>
                 <a href="#menu" className="relative z-20">
                 <button className="border border-primary-green text-primary-green bg-white h-14 px-5 rounded-full font-medium text-base hover:bg-primary-green hover:text-black-900 transition-colors min-w-[150px]">
-                  View Menu
+                  {t('hero.view_menu')}
                 </button>
                 </a>
               </div>
