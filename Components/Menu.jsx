@@ -5,12 +5,12 @@ import MenuCard from './MenuCard';
 import EditCartModal from './EditCartModal';
 import { useTranslation } from '@/app/i18n/client';
 
-export default function Menu() {
+export default function Menu({ initialData = null }) {
   const { t } = useTranslation();
-  const [menuItems, setMenuItems] = useState([]);
+  const [menuItems, setMenuItems] = useState(initialData?.items || []);
   const [categories, setCategories] = useState(['All Tea']);
   const [selectedCategory, setSelectedCategory] = useState('All Tea');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,13 +25,36 @@ export default function Menu() {
 
   const [itemsToShow, setItemsToShow] = useState(getInitialItems());
 
+  // Process initial data if provided
   useEffect(() => {
+    if (initialData?.items) {
+      // Extract unique categories from initial data
+      const uniqueCategories = ['All Tea', ...new Set(
+        initialData.items
+          .map(item => item.category)
+          .filter(cat => cat && cat !== 'Uncategorized')
+      )];
+
+      console.log('Using server-rendered menu data');
+      console.log('Categories:', uniqueCategories);
+      console.log('Total items:', initialData.items.length);
+
+      setCategories(uniqueCategories);
+      setMenuItems(initialData.items);
+      setLoading(false);
+    }
+  }, [initialData]);
+
+  // Fetch data client-side only if no initial data provided
+  useEffect(() => {
+    if (initialData) return; // Skip if we have server data
+
     async function fetchMenuItems() {
       try {
         setLoading(true);
         setError(null);
 
-        console.log('Fetching menu items...');
+        console.log('Fetching menu items client-side...');
         const response = await fetch('/api/square-items');
 
         console.log('Response status:', response.status);
@@ -70,7 +93,7 @@ export default function Menu() {
     }
 
     fetchMenuItems();
-  }, []);
+  }, [initialData]);
 
   // Reset items to show when category or search changes
   useEffect(() => {

@@ -2,20 +2,11 @@ import { NextResponse } from 'next/server';
 import { SquareClient, SquareEnvironment } from 'square';
 import { getSquareAuth, getLocationId } from '@/lib/square-auth';
 
-// In-memory cache with TTL
-let cache = null;
-let cacheTimestamp = 0;
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
+// Next.js will cache this route for 24 hours (86400 seconds)
+export const revalidate = 86400;
 
 export async function GET() {
   try {
-    // Check cache first
-    const now = Date.now();
-    if (cache && (now - cacheTimestamp) < CACHE_TTL) {
-      console.log('✅ Returning cached menu items (age:', Math.round((now - cacheTimestamp) / 1000), 'seconds)');
-      return NextResponse.json(cache);
-    }
-
     console.log('🔍 Fetching Square items for Rabbit Hole...');
 
     // Get auth credentials from Supabase (will auto-refresh if needed)
@@ -181,10 +172,7 @@ export async function GET() {
       }
     };
 
-    // Cache the result
-    cache = responseData;
-    cacheTimestamp = Date.now();
-    console.log('💾 Cached menu items for', CACHE_TTL / 1000, 'seconds');
+    console.log('💾 Data will be cached by Next.js for 24 hours');
 
     return NextResponse.json(responseData);
 
@@ -216,4 +204,3 @@ export async function GET() {
 }
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
