@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import MenuCard from './MenuCard';
 import EditCartModal from './EditCartModal';
 
-export default function Menu() {
+export default function Menu({ initialCategory = 'All Tea' }) {
   const [menuItems, setMenuItems] = useState([]);
   const [categories, setCategories] = useState(['All Tea']);
-  const [selectedCategory, setSelectedCategory] = useState('All Tea');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -22,6 +22,11 @@ export default function Menu() {
   };
 
   const [itemsToShow, setItemsToShow] = useState(getInitialItems());
+
+  // Update selected category when initialCategory prop changes
+  useEffect(() => {
+    setSelectedCategory(initialCategory);
+  }, [initialCategory]);
 
   useEffect(() => {
     async function fetchMenuItems() {
