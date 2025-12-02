@@ -15,6 +15,7 @@ import Footer from '@/Components/Footer';
 import Header from '@/Components/Header';
 import Link from 'next/link';
 import StructuredData from '@/Components/StructuredData';
+import SpecialsPopup from '@/Components/SpecialsPopup';
 import { useTranslation } from '@/app/i18n/client';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
   const { t } = useTranslation();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [menuCategory, setMenuCategory] = useState('All Tea');
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -45,9 +47,23 @@ export default function Home() {
 
   const cartItemCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
+  const handleTakeMeThere = () => {
+    // Set menu category to Specialties
+    setMenuCategory('Special Drinks');
+
+    // Scroll to menu section
+    const menuSection = document.getElementById('menu');
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black">
       <StructuredData />
+
+      {/* Specials Popup */}
+      <SpecialsPopup onTakeMeThere={handleTakeMeThere} />
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col">
         {/* Navigation */}
@@ -146,7 +162,7 @@ export default function Home() {
       <Trust />
 
       {/* Menu Section */}
-      <Menu />
+      <Menu initialCategory={menuCategory} />
       
       <AboutUs />
       <Reviews />

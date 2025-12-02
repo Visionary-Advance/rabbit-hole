@@ -73,28 +73,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-import { Inter, Quicksand } from "next/font/google";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const quicksand = Quicksand({
-  variable: "--font-quicksand",
-  subsets: ["latin"],
-});
-
 export default function LocaleLayout({ children, params }) {
-  const { locale } = params;
-
-  return (
-    <html lang={locale === 'zh' ? 'zh' : 'en'} suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${quicksand.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }
