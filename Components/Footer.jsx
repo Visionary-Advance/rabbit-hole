@@ -1,8 +1,11 @@
+'use client'
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from '@/app/i18n/client';
 
 export default function Footer(){
+  const { t } = useTranslation();
 
 
 
@@ -22,7 +25,7 @@ export default function Footer(){
                 className="w-32 h-auto"
               />
               <p className="text-black-300 text-base leading-relaxed">
-                The Rabbit Hole Tea Bar is a Eugene local tea shop. We focus on making delicious and creative bubble tea drinks to serve our neighbors.
+                {t('footer.description')}
               </p>
 
               {/* Social Media Icons */}
@@ -53,18 +56,18 @@ export default function Footer(){
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-white font-bold text-2xl">Quick Link</h3>
+              <h3 className="text-white font-bold text-2xl">{t('footer.quick_links')}</h3>
               <nav className="flex flex-col gap-3">
-                <a href="#home" className="text-black-300 text-base hover:text-primary-green transition-colors">Home</a>
-                <a href="#menu" className="text-black-300 text-base hover:text-primary-green transition-colors">Menu</a>
-                <a href="#about" className="text-black-300 text-base hover:text-primary-green transition-colors">About us</a>
+                <a href="#home" className="text-black-300 text-base hover:text-primary-green transition-colors">{t('footer.home')}</a>
+                <a href="#menu" className="text-black-300 text-base hover:text-primary-green transition-colors">{t('footer.menu')}</a>
+                <a href="#about" className="text-black-300 text-base hover:text-primary-green transition-colors">{t('footer.about_us')}</a>
                 <a href="#faq" className="text-black-300 text-base hover:text-primary-green transition-colors">FAQs</a>
               </nav>
             </div>
 
             {/* Contact */}
             <div className="space-y-5">
-              <h3 className="text-white font-bold text-2xl">Contact</h3>
+              <h3 className="text-white font-bold text-2xl">{t('footer.contact')}</h3>
               <div className="flex flex-col gap-3">
                 <div className="flex items-start gap-2">
                   <div className="w-5 h-5 bg-secondary rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -112,7 +115,7 @@ export default function Footer(){
 
             {/* Opening Hours */}
             <div className="space-y-4">
-              <h3 className="text-white font-bold text-2xl">Opening Hours</h3>
+              <h3 className="text-white font-bold text-2xl">{t('contact.opening_hours')}</h3>
               <div className="flex flex-col gap-3">
                 <p className="text-black-300 text-base opacity-80">Monday - Friday: 11:00 AM - 8:00 PM</p>
                 <p className="text-black-300 text-base opacity-80">Saturday - Sunday: 11:00 AM - 8:00 PM</p>
@@ -122,7 +125,7 @@ export default function Footer(){
 
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6">
-            <p className="text-black-300 text-base">Copyright © Rabbit Hole Tea Bar 2025</p>
+            <p className="text-black-300 text-base">{t('footer.copyright')}</p>
             <p className="text-black-300 text-base">Powered by <Link href={"https://visionaryadvance.com"} rel="nofollow" target="_blank">Visionary Advance</Link> </p>
           </div>
         </div>

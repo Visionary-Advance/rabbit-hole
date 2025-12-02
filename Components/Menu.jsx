@@ -3,12 +3,14 @@
 import { useState, useEffect } from 'react';
 import MenuCard from './MenuCard';
 import EditCartModal from './EditCartModal';
+import { useTranslation } from '@/app/i18n/client';
 
-export default function Menu({ initialCategory = 'All Tea' }) {
-  const [menuItems, setMenuItems] = useState([]);
+export default function Menu({ initialCategory = 'All Tea', initialData = null }) {
+  const { t } = useTranslation();
+  const [menuItems, setMenuItems] = useState(initialData?.items || []);
   const [categories, setCategories] = useState(['All Tea']);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,13 +30,36 @@ export default function Menu({ initialCategory = 'All Tea' }) {
     setSelectedCategory(initialCategory);
   }, [initialCategory]);
 
+  // Process initial data if provided
   useEffect(() => {
+    if (initialData?.items) {
+      // Extract unique categories from initial data
+      const uniqueCategories = ['All Tea', ...new Set(
+        initialData.items
+          .map(item => item.category)
+          .filter(cat => cat && cat !== 'Uncategorized')
+      )];
+
+      console.log('Using server-rendered menu data');
+      console.log('Categories:', uniqueCategories);
+      console.log('Total items:', initialData.items.length);
+
+      setCategories(uniqueCategories);
+      setMenuItems(initialData.items);
+      setLoading(false);
+    }
+  }, [initialData]);
+
+  // Fetch data client-side only if no initial data provided
+  useEffect(() => {
+    if (initialData) return; // Skip if we have server data
+
     async function fetchMenuItems() {
       try {
         setLoading(true);
         setError(null);
 
-        console.log('Fetching menu items...');
+        console.log('Fetching menu items client-side...');
         const response = await fetch('/api/square-items');
 
         console.log('Response status:', response.status);
@@ -73,7 +98,7 @@ export default function Menu({ initialCategory = 'All Tea' }) {
     }
 
     fetchMenuItems();
-  }, []);
+  }, [initialData]);
 
   // Reset items to show when category or search changes
   useEffect(() => {
@@ -133,10 +158,10 @@ export default function Menu({ initialCategory = 'All Tea' }) {
         {/* Menu Header */}
         <div className="text-center mb-8">
           <h2 className="font-quicksand font-bold text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4">
-            Our Menu
+            {t('menu.title')}
           </h2>
           <p className="text-black-500 max-w-md mx-auto">
-            Something for everyone. Milk teas, fruit teas, toppings & more.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -153,7 +178,7 @@ export default function Menu({ initialCategory = 'All Tea' }) {
                     : 'bg-black-200 text-black-900 hover:bg-secondary'
                 }`}
               >
-                {category}
+                {category === 'All Tea' ? t('menu.all_tea') : category}
               </button>
             ))}
           </div>
@@ -165,7 +190,7 @@ export default function Menu({ initialCategory = 'All Tea' }) {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search menu items..."
+                placeholder={t('menu.search_placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-3 pl-12 rounded-full border-2 border-black-300 bg-white text-black-900 placeholder-black-400 focus:outline-none focus:border-primary-green transition-colors"
@@ -202,19 +227,19 @@ export default function Menu({ initialCategory = 'All Tea' }) {
         {loading && (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-green border-t-transparent"></div>
-            <p className="text-white mt-4">Loading menu items...</p>
+            <p className="text-white mt-4">{t('common.loading')}</p>
           </div>
         )}
 
         {/* Error State */}
         {error && (
           <div className="text-center py-12 bg-red-900/20 rounded-2xl p-8">
-            <p className="text-red-400 font-semibold mb-2">Error loading menu</p>
+            <p className="text-red-400 font-semibold mb-2">{t('menu.error')}</p>
             <p className="text-red-300 text-sm mb-4">{error}</p>
             <p className="text-white text-xs mb-4">
               Please check your browser console for more details
             </p>
-            <button 
+            <button
               onClick={() => window.location.reload()}
               className="mt-4 bg-primary-green text-black-900 px-6 py-2 rounded-full hover:bg-opacity-90 transition-colors"
             >
@@ -239,7 +264,7 @@ export default function Menu({ initialCategory = 'All Tea' }) {
             {/* No Results Message */}
             {filteredItems.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-white">No items found in this category.</p>
+                <p className="text-white">{t('menu.no_results')}</p>
               </div>
             )}
 
@@ -250,7 +275,7 @@ export default function Menu({ initialCategory = 'All Tea' }) {
                   onClick={handleLoadMore}
                   className="bg-primary-green text-black-900 px-8 py-3 rounded-full font-medium hover:bg-opacity-90 transition-colors"
                 >
-                  Load More
+                  {t('menu.load_more')}
                 </button>
                 <p className="text-black-500 mt-3 text-sm">
                   Showing {displayedItems.length} of {filteredItems.length} items

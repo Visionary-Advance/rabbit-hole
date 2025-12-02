@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import Button from './Button';
 import Link from 'next/link';
 import EditCartModal from './EditCartModal';
+import { useTranslation } from '@/app/i18n/client';
 
 export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
+  const { t } = useTranslation();
   const [editingItem, setEditingItem] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
 
@@ -87,7 +89,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
         } flex flex-col`}
       >
         <div className="flex justify-between items-center p-4 border-b border-[#A8D5BA]">
-          <h2 className="text-2xl font-semibold">Your Cart</h2>
+          <h2 className="text-2xl font-semibold">{t('cart.title')}</h2>
           <button
             onClick={onClose}
             className="text-3xl font-bold hover:text-[#A8D5BA]"
@@ -99,7 +101,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
         <div className="flex-grow overflow-y-auto py-4 px-4">
           {cartItems.length === 0 ? (
             <div className="text-center py-8">
-              <p>Your cart is empty</p>
+              <p>{t('cart.empty')}</p>
             </div>
           ) : (
             cartItems.map(item => (
@@ -165,7 +167,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
                     onClick={() => setEditingItem(item)}
                     className="text-sm text-white hover:underline mr-2"
                   >
-                    Edit
+                    {t('cart.customize')}
                   </button>
                   <button
                     onClick={() =>
@@ -173,7 +175,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
                     }
                     className="text-sm text-white hover:underline"
                   >
-                    Remove
+                    {t('cart.remove')}
                   </button>
                 </div>
 
@@ -203,7 +205,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
         {/* Subtotal + Checkout */}
         <div className="border-t border-[#A8D5BA] p-4 bg-[#88AD89]">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold">Subtotal:</h3>
+            <h3 className="text-xl font-semibold">{t('cart.subtotal')}:</h3>
             <p className="text-xl font-semibold">${calculateSubtotal()}</p>
           </div>
           <Link
@@ -218,7 +220,7 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
           >
             <Button
               width="w-full"
-              text="Proceed to Checkout"
+              text={t('cart.checkout')}
               color="bg-white text-black"
               disabled={cartItems.length === 0}
             />

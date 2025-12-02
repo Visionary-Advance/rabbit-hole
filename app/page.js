@@ -6,14 +6,12 @@ import Contact from "@/Components/Contact";
 import FAQAccordion from "@/Components/FAQ";
 import Reviews from "@/Components/Reviews";
 import Trust from "@/Components/Trust";
-import Menu from "@/Components/Menu";
-import Cart from "@/Components/Cart";
-import Image from "next/image";
-import CTA from '../Components/CTA';
+import MenuServer from "@/Components/MenuServer";
+import CTA from '@/Components/CTA';
 import Footer from '@/Components/Footer';
-import Header from '@/Components/Header';
 import StructuredData from '@/Components/StructuredData';
 import SpecialsPopup from '@/Components/SpecialsPopup';
+import HomeClient from '@/Components/HomeClient';
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -58,89 +56,16 @@ export default function Home() {
 
       {/* Specials Popup */}
       <SpecialsPopup onTakeMeThere={handleTakeMeThere} />
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col">
-        {/* Navigation */}
-       <Header
-         cartItemCount={cartItemCount}
-         onCartClick={() => setIsCartOpen(true)}
-       />
 
-        {/* Hero Background Image */}
-        <div className="absolute w-full md:w-[97%] md:left-1/2 md:-translate-x-1/2 inset-0 z-0">
-          <Image
-            src="https://api.builder.io/api/v1/image/assets/TEMP/51af8464867a420b04c85c9ef60d048c9ef62263?width=2720"
-            alt="Bubble tea background"
-            fill
-            className="object-cover md:rounded-3xl "
-            style={{ objectPosition: 'center top' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:rounded-3xl "></div>
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative flex-1 z-10 w-full lg:w-1/2 justify-center flex flex-col lg:items-center pt-12 pb-32 lg:pb-26 px-6 lg:px-0">
-        <div className='absolute w-full top-20 right-0'>
-          <Image
-          src={"/Img/Boba.png"}
-          alt='Boba for bubble tea'
-          fill
-          className='absolute w-20 h-20'
-          />
-        </div>
-          <div className="max-w-xl flex-1 flex flex-col justify-center">
-            <div className="relative mb-6 h-87">
-              <h1 className=" font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl leading-tight text-white">
-                Eugene&apos;s<br />
-                Bubble Tea
-              </h1>
-
-              <div className="absolute font-quicksand font-bold text-6xl lg:text-7xl xl:text-8xl text-white lg:top-[81%] lg:left-[48%] lg:-translate-x-1/2 lg:-translate-y-1/2">
-                Spot
-              </div>
-
-              <Image
-                src="/Img/Rabbit1.jpg"
-                alt="Person enjoying bubble tea"
-                width={112}
-                height={63}
-                className="absolute rounded-full border-2 border-primary-green w-20 h-12 md:w-28 md:h-16 object-cover top-[47%] left-[40%] lg:top-[73%] lg:left-[3%]"
-              />
-              <Image
-                src="/Img/Tea.jpg"
-                alt="Person with bubble tea"
-                width={124}
-                height={71}
-                className="absolute rounded-full border-2 border-primary-green w-24 h-16 md:w-32 md:h-20 object-cover top-[5%] right-[1%] lg:top-[10%] lg:right-[-7%]"
-              />
-            </div>
-            <p className="hidden lg:block text-white text-lg md:text-xl lg:text-2xl mb-10 max-w-md">
-              Freshly brewed. Made with love
-            </p>
-          </div>
-
-          {/* Buttons - Positioned at bottom on mobile for thumb-friendly access */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col gap-3 w-11/12 lg:relative lg:bottom-auto lg:left-auto lg:translate-x-7 lg:flex-row lg:gap-5 lg:max-w-xl">
-            <a href='#menu' className="w-full lg:w-auto">
-            <button className="w-full bg-primary-green text-black-900 h-14 px-5 rounded-full font-medium hover:bg-opacity-90 transition-colors lg:min-w-[150px]">
-              Order Online
-            </button>
-            </a>
-             <a href='#menu' className="w-full lg:w-auto">
-            <button className="w-full border border-primary-green text-primary-green h-14 px-5 rounded-full font-medium hover:bg-primary-green hover:text-black-900 transition-colors lg:min-w-[150px]">
-              View Menu
-            </button>
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* Client-side interactive hero and cart */}
+      <HomeClient />
 
       {/* Trust Section */}
       <Trust />
 
-      {/* Menu Section */}
-      <Menu initialCategory={menuCategory} />
-      
+      {/* Menu Section - Server-rendered with 24-hour cache */}
+      <MenuServer initialCategory={menuCategory} />
+
       <AboutUs />
       <Reviews />
       <Contact />
@@ -149,14 +74,6 @@ export default function Home() {
       <CTA />
 
       <Footer />
-
-      {/* Cart Sidebar */}
-      <Cart 
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-      />
     </div>
   );
 }

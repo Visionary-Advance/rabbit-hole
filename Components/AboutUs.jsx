@@ -1,8 +1,12 @@
+'use client'
+
 import Image from "next/image";
+import { useTranslation } from '@/app/i18n/client';
 
 
 
 export default function AboutUs(){
+  const { t } = useTranslation();
 
 
 
@@ -21,7 +25,7 @@ export default function AboutUs(){
               {/* Title positioned above the tea image */}
               <div className="mb-8 lg:mb-12">
                 <h2 className="font-quicksand text-black font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
-                  Brewed with Heart. Served with Joy.
+                  {t('about.title')}
                 </h2>
               </div>
 
@@ -54,10 +58,10 @@ export default function AboutUs(){
               <div className="space-y-6">
                 <div className="space-y-4">
                   <p className="text-black text-base leading-relaxed">
-                    We started our bubble tea journey with a simple mission: bring people together over drinks that are full of flavor, fun, and freshness.
+                    {t('about.paragraph1')}
                   </p>
                   <p className="text-black text-base leading-relaxed">
-                    At our shop, every cup is handcrafted using premium teas, real ingredients, and a whole lot of love. Whether you&apos;re craving the creamy richness of a classic milk tea, the zing of fruity infusions, or the chewy perfection of boba.
+                    {t('about.paragraph2')}
                   </p>
                 </div>
 

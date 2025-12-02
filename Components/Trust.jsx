@@ -1,22 +1,22 @@
+'use client'
 
-
-
+import { useTranslation } from '@/app/i18n/client';
 
 export default function Trust(){
-
+  const { t } = useTranslation();
 
 return(
 
     <>
-    
-    
+
+
      <section className="py-12 md:py-16 place-items-center bg-black ">
   <div className="text-center mb-12">
     <h2 className="font-quicksand font-bold text-white text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight max-w-4xl my-4 mx-auto">
-      Explore our number-one Bubble Tea picks and favorites.
+      {t('trust.title')}
     </h2>
   </div>
-  
+
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 my-10 mx-auto  w-9/12 ">
     {/* Experience */}
     <div className="text-center relative">
@@ -34,14 +34,14 @@ return(
             <path d="M9.99998 6.01414L8.8079 6.43789C8.46957 6.55831 8.11623 6.30122 8.12623 5.94247L8.16082 4.67789L7.38915 3.67497C7.1704 3.39039 7.3054 2.97497 7.64957 2.8733L8.86332 2.51539L9.57873 1.47164C9.78165 1.17539 10.2187 1.17539 10.4216 1.47164L11.1371 2.51539L12.3508 2.8733C12.695 2.97497 12.83 3.39039 12.6112 3.67497L11.8396 4.67789L11.8741 5.94247C11.8841 6.30122 11.5304 6.55831 11.1925 6.43789L9.99998 6.01414Z" fill="#FBFBFB"/>
           </svg>
         </div>
-        <h3 className="text-white text-xl md:text-2xl font-medium">Experience</h3>
+        <h3 className="text-white text-xl md:text-2xl font-medium">{t('trust.experience.title')}</h3>
       </div>
       <div className="mb-3 flex items-baseline justify-left gap-1">
-        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">8 Years</span>
+        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">{t('trust.experience.value')}</span>
         <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
       </div>
-      <p className="text-black-200 text-left">Experience We Have In this Field</p>
-      
+      <p className="text-black-200 text-left">{t('trust.experience.description')}</p>
+
       {/* Right border - hidden on mobile, visible on md+ except for last item */}
       <div className="hidden md:block absolute right-0 top-0 h-full w-px bg-gray-600"></div>
     </div>
@@ -62,14 +62,14 @@ return(
             </defs>
           </svg>
         </div>
-        <h3 className="text-white text-xl md:text-2xl font-medium">Served</h3>
+        <h3 className="text-white text-xl md:text-2xl font-medium">{t('trust.served.title')}</h3>
       </div>
       <div className="mb-3 flex items-baseline justify-left gap-1">
-        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">21k</span>
+        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">{t('trust.served.value')}</span>
         <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
       </div>
-      <p className="text-black-200">Happy Customers we have served</p>
-      
+      <p className="text-black-200">{t('trust.served.description')}</p>
+
       {/* Right border - hidden on mobile, visible on md+ except for last item */}
       <div className="hidden md:block absolute right-0 top-0 h-full w-px bg-gray-600"></div>
     </div>
@@ -89,17 +89,17 @@ return(
             </defs>
           </svg>
         </div>
-        <h3 className="text-white text-xl md:text-2xl font-medium">Item</h3>
+        <h3 className="text-white text-xl md:text-2xl font-medium">{t('trust.items.title')}</h3>
       </div>
       <div className="mb-3 flex items-baseline justify-left gap-1">
-        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">30</span>
+        <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-white">{t('trust.items.value')}</span>
         <span className="font-bold text-4xl md:text-5xl lg:text-6xl text-primary-green">+</span>
       </div>
-      <p className="text-black-200">Specialty Bubble Tea Offered</p>
+      <p className="text-black-200">{t('trust.items.description')}</p>
     </div>
   </div>
 </section>
-    
+
     </>
 
 );

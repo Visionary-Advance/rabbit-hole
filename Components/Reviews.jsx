@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/app/i18n/client';
 
 export default function Reviews() {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Reviews data array
@@ -102,7 +104,7 @@ export default function Reviews() {
           {/* Title */}
           <div className="flex-1">
             <h2 className="font-quicksand font-bold text-white text-4xl md:text-5xl lg:text-6xl leading-tight max-w-lg">
-              Our Customers Say It Best
+              {t('reviews.title')}
             </h2>
           </div>
 
@@ -112,7 +114,7 @@ export default function Reviews() {
           {/* Description */}
           <div className="flex-1 lg:max-w-xs">
             <p className="text-black-200 text-base leading-relaxed">
-              From first sips to long-time favorites, here&apos;s what people are saying about their bubble tea moments with us.
+              {t('reviews.description')}
             </p>
           </div>
 

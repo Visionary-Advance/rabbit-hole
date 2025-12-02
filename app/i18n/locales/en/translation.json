@@ -1,0 +1,142 @@
+{
+  "nav": {
+    "menu": "Menu",
+    "about": "About Us",
+    "cart": "Cart",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "title_line1": "Eugene's",
+    "title_line2": "Bubble Tea",
+    "title_line3": "Spot",
+    "subtitle": "Freshly brewed. Made with love",
+    "order_online": "Order Online",
+    "view_menu": "View Menu"
+  },
+  "trust": {
+    "title": "Explore our number-one Bubble Tea picks and favorites.",
+    "experience": {
+      "title": "Experience",
+      "value": "8 Years",
+      "description": "Experience We Have In this Field"
+    },
+    "served": {
+      "title": "Served",
+      "value": "21k",
+      "description": "Happy Customers we have served"
+    },
+    "items": {
+      "title": "Item",
+      "value": "30",
+      "description": "Specialty Bubble Tea Offered"
+    }
+  },
+  "menu": {
+    "title": "Our Menu",
+    "all_tea": "All Tea",
+    "search_placeholder": "Search menu...",
+    "load_more": "Load More",
+    "no_results": "No items found",
+    "error": "Failed to load menu items"
+  },
+  "about": {
+    "title": "Brewed with Heart. Served with Joy.",
+    "paragraph1": "We started our bubble tea journey with a simple mission: bring people together over drinks that are full of flavor, fun, and freshness.",
+    "paragraph2": "At our shop, every cup is handcrafted using premium teas, real ingredients, and a whole lot of love. Whether you're craving the creamy richness of a classic milk tea, the zing of fruity infusions, or the chewy perfection of boba."
+  },
+  "contact": {
+    "title": "Find or Message Us",
+    "subtitle": "Something for everyone. Milk teas, fruit teas, toppings & more.",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "opening_hours": "Opening Hours",
+    "hours_detail": "Monday - Friday: 7:00 AM - 8:00 PM",
+    "form": {
+      "title": "Send us a message",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email_label": "Email",
+      "phone_label": "Phone Number",
+      "message_label": "Message",
+      "first_name_placeholder": "First Name",
+      "last_name_placeholder": "Last Name",
+      "email_placeholder": "email@example.com",
+      "phone_placeholder": "(555) 123-4567",
+      "message_placeholder": "Type your message...",
+      "submit_button": "Submit Now",
+      "submitting": "Sending...",
+      "success": "Your message has been sent!",
+      "error": "There was a problem sending your message.",
+      "server_error": "Server error. Please try again."
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "What kind of drinks do you serve?",
+        "answer": "We serve a wide variety of bubble tea drinks including classic milk teas, fruit teas, specialty signature drinks, and seasonal favorites. All made with premium ingredients."
+      },
+      {
+        "question": "What are your opening hours?",
+        "answer": "We're open Monday to Sunday from 11 AM to 8 PM. Come by any time during those hours for a sip!"
+      },
+      {
+        "question": "Where are you located?",
+        "answer": "You can find us at 240 E 17th Ave. Eugene, OR 97401. We're conveniently located in the heart of Eugene."
+      },
+      {
+        "question": "Can I order online?",
+        "answer": "Yes! We offer online ordering for pickup and delivery. You can place your order through our website or mobile app for a quick and convenient experience."
+      },
+      {
+        "question": "Do you have dairy-free alternatives?",
+        "answer": "Absolutely! We offer a variety of dairy-free alternatives. Many of our fruit teas are naturally vegan, and we can customize most drinks to meet your dietary preferences."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Every Sip is a Celebration of Flavor",
+    "subtitle": "Come by and discover your new favorite bubble tea today. Eugene's best bubble tea experience is waiting for you!",
+    "button": "Order Now"
+  },
+  "footer": {
+    "description": "The Rabbit Hole Tea Bar is a Eugene local tea shop. We focus on making delicious and creative bubble tea drinks to serve our neighbors.",
+    "quick_links": "Quick Link",
+    "home": "Home",
+    "menu": "Menu",
+    "about_us": "About us",
+    "contact": "Contact",
+    "contact_info": "Contact Info",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "address": "240 E 17th Ave. Eugene, OR 97401",
+    "newsletter": "Newsletter",
+    "newsletter_description": "Subscribe to our newsletter to get updates on special offers and new flavors!",
+    "email_placeholder": "Enter your email",
+    "subscribe": "Subscribe",
+    "copyright": "© 2025 The Rabbit Hole Tea Bar. All rights reserved."
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue Shopping",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "customize": "Customize"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "close": "Close",
+    "add_to_cart": "Add to Cart"
+  },
+  "reviews": {
+    "title": "Our Customers Say It Best",
+    "description": "From first sips to long-time favorites, here's what people are saying about their bubble tea moments with us."
+  }
+}
