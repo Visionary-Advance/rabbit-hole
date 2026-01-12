@@ -11,8 +11,13 @@ export default function LanguageSwitcher() {
 
   useEffect(() => {
     // Detect current locale from pathname
-    const isZh = pathname.startsWith('/zh')
-    setCurrentLocale(isZh ? 'zh' : 'en')
+    if (pathname.startsWith('/zh')) {
+      setCurrentLocale('zh')
+    } else if (pathname.startsWith('/en')) {
+      setCurrentLocale('en')
+    } else {
+      setCurrentLocale('en') // Default
+    }
 
     // Get current hash for preserving anchors
     setHash(window.location.hash)
@@ -22,13 +27,15 @@ export default function LanguageSwitcher() {
   const getLocalizedPath = (locale) => {
     let path = pathname
 
-    // Remove /zh prefix if it exists
+    // Remove current locale prefix (/en or /zh)
     if (path.startsWith('/zh')) {
+      path = path.slice(3) || '/'
+    } else if (path.startsWith('/en')) {
       path = path.slice(3) || '/'
     }
 
-    // Add locale prefix for zh, keep root for en
-    const newPath = locale === 'zh' ? `/zh${path === '/' ? '' : path}` : path
+    // Add new locale prefix
+    const newPath = `/${locale}${path === '/' ? '' : path}`
 
     return `${newPath}${hash}`
   }

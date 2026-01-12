@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "title": "The Rabbit Hole Tea Bar | Pinakamahusay na Bubble Tea sa Eugene",
+    "description": "Pangunahing bubble tea shop sa Eugene sa 17th Ave. Sariwang boba, milk tea, fruit tea, at marami pa. Mag-order online para sa pickup. Mahigit 8 taon na naglilingkod sa Eugene, OR.",
+    "keywords": "bubble tea Eugene, boba tea Eugene Oregon, milk tea, fruit tea, The Rabbit Hole, 17th Avenue"
+  },
+  "nav": {
+    "menu": "Menu",
+    "about": "Tungkol sa Amin",
+    "cart": "Cart",
+    "contact": "Makipag-ugnayan"
+  },
+  "hero": {
+    "title_line1": "Ang Bubble Tea",
+    "title_line2": "na Paborito",
+    "title_line3": "ng Eugene",
+    "subtitle": "Sariwang timpla. Gawa na may pagmamahal",
+    "order_online": "Mag-order Online",
+    "view_menu": "Tingnan ang Menu"
+  },
+  "trust": {
+    "title": "Tuklasin ang aming pinakamahusay na Bubble Tea picks at mga paborito.",
+    "experience": {
+      "title": "Karanasan",
+      "value": "8 Taon",
+      "description": "Karanasan na Mayroon Kami sa Larangang Ito"
+    },
+    "served": {
+      "title": "Nasilbihan",
+      "value": "21k",
+      "description": "Masayang Customers na Nasilbihan Namin"
+    },
+    "items": {
+      "title": "Item",
+      "value": "30",
+      "description": "Espesyal na Bubble Tea na Inaalok"
+    }
+  },
+  "menu": {
+    "title": "Aming Menu",
+    "all_tea": "Lahat ng Tea",
+    "search_placeholder": "Maghanap sa menu...",
+    "load_more": "Mag-load ng Higit Pa",
+    "no_results": "Walang nakitang items",
+    "error": "Nabigong mag-load ng menu items"
+  },
+  "about": {
+    "title": "Timpla na may Puso. Inihain na may Kasiyahan.",
+    "paragraph1": "Nagsimula kami sa aming bubble tea journey na may simpleng misyon: pagsamahin ang mga tao sa pamamagitan ng mga inumin na puno ng lasa, saya, at sariwang sangkap.",
+    "paragraph2": "Sa aming shop, bawat tasa ay ginawa gamit ang premium na tsaa, tunay na sangkap, at malaking pagmamahal. Kahit nais mo ang creamy richness ng classic milk tea, ang zing ng fruity infusions, o ang chewy perfection ng boba."
+  },
+  "contact": {
+    "title": "Hanapin o Mensahe Kami",
+    "subtitle": "May para sa lahat. Milk tea, fruit tea, toppings at marami pa.",
+    "phone": "Telepono",
+    "email": "Email",
+    "location": "Lokasyon",
+    "opening_hours": "Oras ng Pagbubukas",
+    "hours_detail": "Lunes - Biyernes: 7:00 AM - 8:00 PM",
+    "form": {
+      "title": "Magpadala ng mensahe",
+      "first_name": "Unang Pangalan",
+      "last_name": "Apelyido",
+      "email_label": "Email",
+      "phone_label": "Numero ng Telepono",
+      "message_label": "Mensahe",
+      "first_name_placeholder": "Unang Pangalan",
+      "last_name_placeholder": "Apelyido",
+      "email_placeholder": "email@example.com",
+      "phone_placeholder": "(555) 123-4567",
+      "message_placeholder": "I-type ang iyong mensahe...",
+      "submit_button": "Isumite Ngayon",
+      "submitting": "Ipinapadala...",
+      "success": "Naipadala na ang iyong mensahe!",
+      "error": "May problema sa pagpapadala ng iyong mensahe.",
+      "server_error": "Server error. Pakisubukan muli."
+    }
+  },
+  "faq": {
+    "title": "Mga Madalas Itanong",
+    "items": [
+      {
+        "question": "Anong uri ng inumin ang inyong inihahain?",
+        "answer": "Nag-aalok kami ng malawak na uri ng bubble tea drinks kabilang ang classic milk teas, fruit teas, specialty signature drinks, at seasonal favorites. Lahat ay gawa sa premium ingredients."
+      },
+      {
+        "question": "Ano ang inyong oras ng pagbubukas?",
+        "answer": "Bukas kami Lunes hanggang Linggo mula 11 AM hanggang 8 PM. Bumisita anumang oras sa mga oras na iyon para sa isang higop!"
+      },
+      {
+        "question": "Nasaan kayo matatagpuan?",
+        "answer": "Mahahanap ninyo kami sa 240 E 17th Ave. Eugene, OR 97401. Kami ay conveniently located sa puso ng Eugene."
+      },
+      {
+        "question": "Maaari ba akong mag-order online?",
+        "answer": "Oo! Nag-aalok kami ng online ordering para sa pickup at delivery. Maaari mong ilagay ang iyong order sa pamamagitan ng aming website o mobile app para sa mabilis at convenient na karanasan."
+      },
+      {
+        "question": "Mayroon ba kayong dairy-free alternatives?",
+        "answer": "Sigurado! Nag-aalok kami ng iba't ibang dairy-free alternatives. Maraming sa aming fruit teas ay natural na vegan, at maaari naming i-customize ang karamihan ng drinks upang matugunan ang iyong dietary preferences."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Bawat Higop ay Pagdiriwang ng Lasa",
+    "subtitle": "Bumisita at tuklasin ang inyong bagong paboritong bubble tea ngayon. Ang pinakamahusay na bubble tea experience ng Eugene ay naghihintay sa inyo!",
+    "button": "Mag-order Ngayon"
+  },
+  "footer": {
+    "description": "Ang Rabbit Hole Tea Bar ay lokal na tea shop sa Eugene. Nakatuon kami sa paggawa ng masarap at creative na bubble tea drinks upang maglingkod sa aming mga kapitbahay.",
+    "quick_links": "Mabilis na Link",
+    "home": "Home",
+    "menu": "Menu",
+    "about_us": "Tungkol sa amin",
+    "contact": "Makipag-ugnayan",
+    "contact_info": "Impormasyon sa Pakikipag-ugnayan",
+    "phone": "Telepono",
+    "email": "Email",
+    "location": "Lokasyon",
+    "address": "240 E 17th Ave. Eugene, OR 97401",
+    "newsletter": "Newsletter",
+    "newsletter_description": "Mag-subscribe sa aming newsletter upang makakuha ng updates sa mga special offers at bagong lasa!",
+    "email_placeholder": "Ilagay ang iyong email",
+    "subscribe": "Mag-subscribe",
+    "copyright": "© 2025 The Rabbit Hole Tea Bar. Lahat ng karapatan ay nakalaan."
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Walang laman ang iyong cart",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "continue_shopping": "Magpatuloy sa Pamimili",
+    "remove": "Alisin",
+    "quantity": "Dami",
+    "customize": "I-customize"
+  },
+  "common": {
+    "loading": "Naglo-load...",
+    "error": "May naganap na error",
+    "close": "Isara",
+    "add_to_cart": "Idagdag sa Cart"
+  },
+  "reviews": {
+    "title": "Ang Aming Mga Customers ang Nagsasabi nang Pinakamahusay",
+    "description": "Mula sa unang higop hanggang sa matagal nang paborito, narito ang sinasabi ng mga tao tungkol sa kanilang bubble tea moments sa amin."
+  }
+}

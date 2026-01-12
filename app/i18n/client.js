@@ -47,13 +47,13 @@ if (!i18next.isInitialized) {
 
 export function useTranslation(ns = 'translation', options = {}) {
   const params = useParams()
-  const locale = params?.locale || getBrowserLanguage()
+  const locale = params?.locale || 'en' // Default to 'en' if no locale in URL
 
   const ret = useTranslationOrg(ns, options)
   const { i18n } = ret
 
   useEffect(() => {
-    // Change language when locale from URL changes or browser language
+    // Change language when locale from URL changes
     if (i18n.language !== locale) {
       i18n.changeLanguage(locale)
     }

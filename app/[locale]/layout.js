@@ -1,30 +1,31 @@
+import { useTranslation } from '@/app/i18n';
+
 export async function generateMetadata({ params }) {
-  const { locale } = params;
+  const { locale } = await params;
+
+  // Load translations for metadata
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { t } = await useTranslation(locale);
 
   const baseUrl = 'https://therabbitholeteabar.com';
+  const currentUrl = locale === 'en' ? baseUrl : `${baseUrl}/${locale}`;
 
-  // Metadata for English (default)
-  const enMetadata = {
-    title: "The Rabbit Hole Tea Bar | Eugene's Best Bubble Tea",
-    description: "Eugene's premier bubble tea shop on 17th Ave. Fresh boba, milk teas, fruit teas, and more. Order online for pickup. 8+ years serving Eugene, OR.",
-    keywords: "bubble tea Eugene, boba tea Eugene Oregon, milk tea, fruit tea, The Rabbit Hole, 17th Avenue",
+  // Locale mapping for OpenGraph
+  const localeMap = {
+    'en': 'en_US',
+    'zh': 'zh_CN'
   };
 
-  // Metadata for Mandarin
-  const zhMetadata = {
-    title: "兔子洞茶吧 | 尤金市最好的珍珠奶茶",
-    description: "尤金市17大道上的优质珍珠奶茶店。新鲜珍珠、奶茶、果茶等。在线订购取货。服务尤金市8年以上。",
-    keywords: "尤金珍珠奶茶, 俄勒冈州珍珠奶茶, 奶茶, 果茶, 兔子洞, 17大道",
+  // Alt text mapping for OG images
+  const altTextMap = {
+    'en': 'The Rabbit Hole Tea Bar - Eugene Bubble Tea',
+    'zh': '兔子洞茶吧 - 尤金珍珠奶茶'
   };
-
-  const isZh = locale === 'zh';
-  const metadata = isZh ? zhMetadata : enMetadata;
-  const currentUrl = isZh ? `${baseUrl}/zh` : baseUrl;
 
   return {
-    title: metadata.title,
-    description: metadata.description,
-    keywords: metadata.keywords,
+    title: t('meta.title'),
+    description: t('meta.description'),
+    keywords: t('meta.keywords'),
     authors: [{ name: "The Rabbit Hole Tea Bar" }],
     alternates: {
       canonical: currentUrl,
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: metadata.title,
-      description: metadata.description,
+      title: t('meta.title'),
+      description: t('meta.description'),
       url: currentUrl,
       siteName: 'The Rabbit Hole Tea Bar',
       images: [
@@ -44,16 +45,16 @@ export async function generateMetadata({ params }) {
           url: '/og-image.jpg',
           width: 1200,
           height: 630,
-          alt: isZh ? '兔子洞茶吧 - 尤金珍珠奶茶' : 'The Rabbit Hole Tea Bar - Eugene Bubble Tea'
+          alt: altTextMap[locale] || altTextMap['en']
         },
       ],
-      locale: isZh ? 'zh_CN' : 'en_US',
+      locale: localeMap[locale] || localeMap['en'],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: metadata.title,
-      description: metadata.description,
+      title: t('meta.title'),
+      description: t('meta.description'),
       images: ['/og-image.jpg'],
     },
     robots: {
@@ -73,6 +74,16 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function LocaleLayout({ children, params }) {
+// Export generateStaticParams for static generation of all locales
+export async function generateStaticParams() {
+  return [
+    { locale: 'en' },
+    { locale: 'zh' }
+  ];
+}
+
+export default async function LocaleLayout({ children, params }) {
+  // This layout generates the metadata above
+  // Children are rendered with proper i18n context
   return children;
 }

@@ -6,8 +6,16 @@ import Image from 'next/image';
 export default function SpecialsPopup({ onTakeMeThere }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    // Preload the image immediately on mount
+    const img = new window.Image();
+    img.src = '/Img/Specials_Flyer_December.jpg';
+    img.onload = () => {
+      setImageLoaded(true);
+    };
+
     // Check if popup has been shown in this session
     const hasSeenPopup = sessionStorage.getItem('specialsPopupShown');
 
@@ -104,6 +112,8 @@ export default function SpecialsPopup({ onTakeMeThere }) {
                   alt="December Specials - The Rabbit Hole Tea Bar"
                   fill
                   className="object-cover"
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
