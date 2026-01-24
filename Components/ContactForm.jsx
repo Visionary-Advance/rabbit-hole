@@ -5,7 +5,7 @@ import { useTranslation } from '@/app/i18n/client';
 
 export default function ContactForm({
   fromEmail = "noreply@mail.visionaryadvance.com",
-  toEmails = ["TheRabbitHoletc@gmail.com"],
+  toEmails = ["flowercorn@gmail.com"],
   subject = "New Contact Form Submission"
 }) {
   const { t } = useTranslation();

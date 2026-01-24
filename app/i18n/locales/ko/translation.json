@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "title": "래빗홀 티 바 | 유진 최고의 버블티",
+    "description": "17번가에 위치한 유진의 프리미엄 버블티 전문점. 신선한 보바, 밀크티, 과일차 등. 온라인 주문 픽업 가능. 8년 이상 오레곤 유진 지역 서비스 제공.",
+    "keywords": "유진 버블티, 오레곤 유진 보바차, 밀크티, 과일차, 래빗홀, 17번가"
+  },
+  "nav": {
+    "menu": "메뉴",
+    "about": "회사 소개",
+    "cart": "장바구니",
+    "contact": "문의하기"
+  },
+  "hero": {
+    "title_line1": "유진의",
+    "title_line2": "버블티",
+    "title_line3": "전문점",
+    "subtitle": "신선하게 우려내고 사랑으로 만듭니다",
+    "order_online": "온라인 주문",
+    "view_menu": "메뉴 보기"
+  },
+  "trust": {
+    "title": "최고의 버블티 추천 상품과 인기 메뉴를 살펴보세요.",
+    "experience": {
+      "title": "경험",
+      "value": "8년",
+      "description": "이 분야에서의 우리의 경험"
+    },
+    "served": {
+      "title": "서비스 제공",
+      "value": "21k",
+      "description": "우리가 서비스를 제공한 만족한 고객"
+    },
+    "items": {
+      "title": "메뉴",
+      "value": "30",
+      "description": "제공되는 특별 버블티"
+    }
+  },
+  "menu": {
+    "title": "메뉴",
+    "all_tea": "모든 차",
+    "search_placeholder": "메뉴 검색...",
+    "load_more": "더 보기",
+    "no_results": "항목을 찾을 수 없습니다",
+    "error": "메뉴 항목을 로드하지 못했습니다"
+  },
+  "about": {
+    "title": "정성으로 우려내고 즐거움으로 제공합니다.",
+    "paragraph1": "우리는 간단한 사명으로 버블티 여정을 시작했습니다: 풍미와 재미, 신선함이 가득한 음료로 사람들을 하나로 모으는 것입니다.",
+    "paragraph2": "우리 매장에서는 모든 음료가 프리미엄 차, 진짜 재료, 그리고 많은 사랑으로 정성스럽게 만들어집니다. 클래식 밀크티의 크리미한 풍미, 과일 주입의 상큼함, 또는 보바의 쫄깃한 완벽함을 원하신다면."
+  },
+  "contact": {
+    "title": "찾아오시거나 메시지를 보내주세요",
+    "subtitle": "모두를 위한 것. 밀크티, 과일차, 토핑 등.",
+    "phone": "전화",
+    "email": "이메일",
+    "location": "위치",
+    "opening_hours": "영업 시간",
+    "hours_detail": "월요일 - 금요일: 오전 7시 - 오후 8시",
+    "form": {
+      "title": "메시지 보내기",
+      "first_name": "이름",
+      "last_name": "성",
+      "email_label": "이메일",
+      "phone_label": "전화번호",
+      "message_label": "메시지",
+      "first_name_placeholder": "이름",
+      "last_name_placeholder": "성",
+      "email_placeholder": "email@example.com",
+      "phone_placeholder": "(555) 123-4567",
+      "message_placeholder": "메시지를 입력하세요...",
+      "submit_button": "지금 제출",
+      "submitting": "전송 중...",
+      "success": "메시지가 전송되었습니다!",
+      "error": "메시지 전송 중 문제가 발생했습니다.",
+      "server_error": "서버 오류. 다시 시도해주세요."
+    }
+  },
+  "faq": {
+    "title": "자주 묻는 질문",
+    "items": [
+      {
+        "question": "어떤 종류의 음료를 제공하나요?",
+        "answer": "클래식 밀크티, 과일차, 특별 시그니처 음료, 계절 인기 메뉴 등 다양한 버블티 음료를 제공합니다. 모두 프리미엄 재료로 만들어집니다."
+      },
+      {
+        "question": "영업 시간은 어떻게 되나요?",
+        "answer": "월요일부터 일요일까지 오전 11시부터 오후 8시까지 영업합니다. 언제든지 방문하세요!"
+      },
+      {
+        "question": "어디에 위치해 있나요?",
+        "answer": "240 E 17th Ave. Eugene, OR 97401에서 찾을 수 있습니다. 유진 중심부에 편리하게 위치해 있습니다."
+      },
+      {
+        "question": "온라인으로 주문할 수 있나요?",
+        "answer": "네! 픽업 및 배달을 위한 온라인 주문을 제공합니다. 빠르고 편리한 경험을 위해 웹사이트나 모바일 앱을 통해 주문할 수 있습니다."
+      },
+      {
+        "question": "유제품이 없는 대안이 있나요?",
+        "answer": "물론입니다! 다양한 유제품이 없는 대안을 제공합니다. 많은 과일차가 자연적으로 비건이며, 대부분의 음료를 식이 선호도에 맞게 맞춤 제작할 수 있습니다."
+      }
+    ]
+  },
+  "cta": {
+    "title": "모든 한 모금이 풍미의 축하입니다",
+    "subtitle": "방문하여 오늘 새로운 즐겨찾기 버블티를 발견하세요. 유진 최고의 버블티 경험이 여러분을 기다립니다!",
+    "button": "지금 주문"
+  },
+  "footer": {
+    "description": "래빗홀 티 바는 유진 지역 차 전문점입니다. 우리는 이웃에게 제공할 맛있고 창의적인 버블티 음료를 만드는 데 집중합니다.",
+    "quick_links": "빠른 링크",
+    "home": "홈",
+    "menu": "메뉴",
+    "about_us": "회사 소개",
+    "contact": "문의",
+    "contact_info": "연락처 정보",
+    "phone": "전화",
+    "email": "이메일",
+    "location": "위치",
+    "address": "240 E 17th Ave. Eugene, OR 97401",
+    "newsletter": "뉴스레터",
+    "newsletter_description": "특별 행사와 새로운 맛에 대한 업데이트를 받으려면 뉴스레터를 구독하세요!",
+    "email_placeholder": "이메일을 입력하세요",
+    "subscribe": "구독",
+    "copyright": "© 2025 래빗홀 티 바. 모든 권리 보유."
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다",
+    "subtotal": "소계",
+    "checkout": "결제",
+    "continue_shopping": "쇼핑 계속하기",
+    "remove": "제거",
+    "quantity": "수량",
+    "customize": "맞춤 설정"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "close": "닫기",
+    "add_to_cart": "장바구니에 추가"
+  },
+  "reviews": {
+    "title": "고객님들의 후기",
+    "description": "첫 모금부터 오랜 즐겨찾기까지, 사람들이 우리와 함께한 버블티 순간에 대해 말하는 것입니다."
+  }
+}

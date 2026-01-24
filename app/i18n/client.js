@@ -9,24 +9,45 @@ import { useParams } from 'next/navigation'
 
 const runsOnServerSide = typeof window === 'undefined'
 
+// Detect browser language - only return 'zh' if browser is set to Chinese
+function getBrowserLanguage() {
+  if (runsOnServerSide) return 'en'
+
+  const browserLang = navigator.language || navigator.userLanguage
+  // Only return 'zh' if browser language is Chinese (zh, zh-CN, zh-TW, etc.)
+  if (browserLang.toLowerCase().startsWith('zh')) {
+    return 'zh'
+  }
+  // Default to English for all other languages
+  return 'en'
+}
+
 // Initialize i18next for client side
 if (!i18next.isInitialized) {
+  const initialLang = getBrowserLanguage()
+
   i18next
     .use(initReactI18next)
     .use(resourcesToBackend((language, namespace) => import(`./locales/${language}/${namespace}.json`)))
     .init({
       ...getOptions(),
-      lng: 'en', // Default language
-      preload: runsOnServerSide ? languages : [],
+      lng: initialLang, // Use detected language
+      fallbackLng: 'en', // Always fallback to English
+      preload: runsOnServerSide ? languages : [initialLang, 'en'], // Preload both to prevent flash
       react: {
-        useSuspense: false
-      }
+        useSuspense: false // Disable Suspense to allow immediate rendering
+      },
+      interpolation: {
+        escapeValue: false
+      },
+      // Load translations synchronously to prevent FOUC
+      initImmediate: false
     })
 }
 
 export function useTranslation(ns = 'translation', options = {}) {
   const params = useParams()
-  const locale = params?.locale || 'en'
+  const locale = params?.locale || 'en' // Default to 'en' if no locale in URL
 
   const ret = useTranslationOrg(ns, options)
   const { i18n } = ret
