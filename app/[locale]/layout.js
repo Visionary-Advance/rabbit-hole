@@ -8,19 +8,6 @@ export async function generateMetadata({ params }) {
   const { t } = await useTranslation(locale);
 
   const baseUrl = 'https://therabbitholeteabar.com';
-  const currentUrl = locale === 'en' ? baseUrl : `${baseUrl}/${locale}`;
-
-  // Locale mapping for OpenGraph
-  const localeMap = {
-    'en': 'en_US',
-    'zh': 'zh_CN'
-  };
-
-  // Alt text mapping for OG images
-  const altTextMap = {
-    'en': 'The Rabbit Hole Tea Bar - Eugene Bubble Tea',
-    'zh': '兔子洞茶吧 - 尤金珍珠奶茶'
-  };
 
   return {
     title: t('meta.title'),
@@ -28,27 +15,22 @@ export async function generateMetadata({ params }) {
     keywords: t('meta.keywords'),
     authors: [{ name: "The Rabbit Hole Tea Bar" }],
     alternates: {
-      canonical: currentUrl,
-      languages: {
-        'en': baseUrl,
-        'zh': `${baseUrl}/zh`,
-        'x-default': baseUrl,
-      },
+      canonical: baseUrl,
     },
     openGraph: {
       title: t('meta.title'),
       description: t('meta.description'),
-      url: currentUrl,
+      url: baseUrl,
       siteName: 'The Rabbit Hole Tea Bar',
       images: [
         {
           url: '/og-image.jpg',
           width: 1200,
           height: 630,
-          alt: altTextMap[locale] || altTextMap['en']
+          alt: 'The Rabbit Hole Tea Bar - Eugene Bubble Tea'
         },
       ],
-      locale: localeMap[locale] || localeMap['en'],
+      locale: 'en_US',
       type: 'website',
     },
     twitter: {
@@ -74,11 +56,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Export generateStaticParams for static generation of all locales
+// Export generateStaticParams for static generation
 export async function generateStaticParams() {
   return [
-    { locale: 'en' },
-    { locale: 'zh' }
+    { locale: 'en' }
   ];
 }
 

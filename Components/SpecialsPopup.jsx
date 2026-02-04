@@ -108,8 +108,8 @@ export default function SpecialsPopup({ onTakeMeThere }) {
               {/* Image Column */}
               <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden order-first lg:order-last">
                 <Image
-                  src="/Img/Specials_Flyer_December.jpg"
-                  alt="December Specials - The Rabbit Hole Tea Bar"
+                  src="/Img/Valentines_Poster.webp"
+                  alt="Valentine's Specials - The Rabbit Hole Tea Bar"
                   fill
                   className="object-cover"
                   priority

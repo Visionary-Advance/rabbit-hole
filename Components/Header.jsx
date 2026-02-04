@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useTranslation } from '@/app/i18n/client';
-import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header({ cartItemCount = 0, onCartClick }){
   const { t } = useTranslation();
@@ -34,7 +33,6 @@ export default function Header({ cartItemCount = 0, onCartClick }){
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    <LanguageSwitcher />
                     <button
                       onClick={onCartClick}
                       className="flex items-center gap-1 hover:opacity-70 transition-opacity"

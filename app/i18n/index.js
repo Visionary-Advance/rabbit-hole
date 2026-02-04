@@ -1,14 +1,20 @@
 import { createInstance } from 'i18next'
-import resourcesToBackend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 import { getOptions } from './settings'
+import enTranslation from './locales/en/translation.json'
 
 const initI18next = async (lng, ns) => {
   const i18nInstance = createInstance()
   await i18nInstance
     .use(initReactI18next)
-    .use(resourcesToBackend((language, namespace) => import(`./locales/${language}/${namespace}.json`)))
-    .init(getOptions(lng, ns))
+    .init({
+      ...getOptions(lng, ns),
+      resources: {
+        en: {
+          translation: enTranslation
+        }
+      }
+    })
   return i18nInstance
 }
 

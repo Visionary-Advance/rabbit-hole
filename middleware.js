@@ -1,33 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const locales = ['en', 'zh'];
 const defaultLocale = 'en';
-
-// Get preferred locale from Accept-Language header
-function getPreferredLocale(request) {
-  // First check cookie
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
-  if (cookieLocale && locales.includes(cookieLocale)) {
-    return cookieLocale;
-  }
-
-  const acceptLanguage = request.headers.get('accept-language');
-  if (!acceptLanguage) return defaultLocale;
-
-  // Parse Accept-Language header
-  const languages = acceptLanguage.split(',').map(lang => {
-    const parts = lang.trim().split(';');
-    const locale = parts[0].split('-')[0]; // Get primary language code
-    return locale;
-  });
-
-  // Find first matching locale - only check for Chinese, default to English
-  for (const lang of languages) {
-    if (lang.startsWith('zh')) return 'zh';
-  }
-
-  return defaultLocale;
-}
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -42,29 +15,23 @@ export function middleware(request) {
     return NextResponse.next();
   }
 
-  // Check if pathname already has a locale prefix
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  if (pathnameHasLocale) {
-    // Extract locale from pathname and set cookie
-    const locale = pathname.split('/')[1];
-    const response = NextResponse.next();
-    response.cookies.set('NEXT_LOCALE', locale, { path: '/' });
-    return response;
+  // Check if pathname already has the /en locale prefix
+  if (pathname.startsWith('/en/') || pathname === '/en') {
+    return NextResponse.next();
   }
 
-  // No locale in pathname - detect preferred locale and rewrite
-  const locale = getPreferredLocale(request);
+  // Redirect /zh routes to English
+  if (pathname.startsWith('/zh/') || pathname === '/zh') {
+    const newUrl = request.nextUrl.clone();
+    newUrl.pathname = pathname.replace(/^\/zh/, '/en');
+    return NextResponse.redirect(newUrl);
+  }
+
+  // Rewrite all other paths to /en
   const newUrl = request.nextUrl.clone();
+  newUrl.pathname = pathname === '/' ? '/en' : `/en${pathname}`;
 
-  // Rewrite to locale-specific path
-  newUrl.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
-
-  const response = NextResponse.rewrite(newUrl);
-  response.cookies.set('NEXT_LOCALE', locale, { path: '/' });
-  return response;
+  return NextResponse.rewrite(newUrl);
 }
 
 export const config = {
