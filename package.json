@@ -13,7 +13,12 @@
     "framer-motion": "^12.23.22",
     "i18next": "^25.7.1",
     "i18next-browser-languagedetector": "^8.2.0",
+<<<<<<< HEAD
     "next": "15.5.3",
+=======
+    "i18next-resources-to-backend": "^1.2.1",
+    "next": "15.5.7",
+>>>>>>> f87049702a5fdd3094a8a0cfafebfec5b9fab833
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-i18next": "^16.3.5",
