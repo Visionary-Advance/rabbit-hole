@@ -5,7 +5,7 @@ import MenuCard from './MenuCard';
 import EditCartModal from './EditCartModal';
 import { useTranslation } from '@/app/i18n/client';
 
-export default function Menu({ initialCategory = 'All Tea', initialData = null }) {
+export default function Menu({ initialCategory = 'All Tea', categoryKey = 0, initialData = null }) {
   const { t } = useTranslation();
   const [menuItems, setMenuItems] = useState(initialData?.items || []);
   const [categories, setCategories] = useState(['All Tea']);
@@ -28,7 +28,7 @@ export default function Menu({ initialCategory = 'All Tea', initialData = null }
   // Update selected category when initialCategory prop changes
   useEffect(() => {
     setSelectedCategory(initialCategory);
-  }, [initialCategory]);
+  }, [initialCategory, categoryKey]);
 
   // Process initial data if provided
   useEffect(() => {

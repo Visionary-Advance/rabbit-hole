@@ -6,7 +6,7 @@ import Contact from "@/Components/Contact";
 import FAQAccordion from "@/Components/FAQ";
 import Reviews from "@/Components/Reviews";
 import Trust from "@/Components/Trust";
-import MenuServer from "@/Components/MenuServer";
+import Menu from "@/Components/Menu";
 import CTA from '@/Components/CTA';
 import Footer from '@/Components/Footer';
 import StructuredData from '@/Components/StructuredData';
@@ -17,6 +17,7 @@ export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [menuCategory, setMenuCategory] = useState('All Tea');
+  const [menuCategoryKey, setMenuCategoryKey] = useState(0);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -40,8 +41,8 @@ export default function Home() {
   const cartItemCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
   const handleTakeMeThere = () => {
-    // Set menu category to Specialties
-    setMenuCategory('Special Drinks');
+    setMenuCategory('Specials');
+    setMenuCategoryKey(prev => prev + 1);
 
     // Scroll to menu section
     const menuSection = document.getElementById('menu');
@@ -63,8 +64,8 @@ export default function Home() {
       {/* Trust Section */}
       <Trust />
 
-      {/* Menu Section - Server-rendered with 24-hour cache */}
-      <MenuServer initialCategory={menuCategory} />
+      {/* Menu Section */}
+      <Menu initialCategory={menuCategory} categoryKey={menuCategoryKey} />
 
       <AboutUs />
       <Reviews />

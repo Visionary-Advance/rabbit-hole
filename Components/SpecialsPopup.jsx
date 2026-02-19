@@ -81,7 +81,7 @@ export default function SpecialsPopup({ onTakeMeThere }) {
                 {/* Header Text */}
                 <div className="text-center lg:text-left mb-6">
                   <h2 className="font-quicksand font-bold text-2xl md:text-3xl lg:text-4xl text-white mb-2">
-                    Check Out Our December Specials!
+                    Check Out Our February Specials!
                   </h2>
                   <p className="text-black-500 text-sm md:text-base lg:text-lg">
                     Exclusive seasonal drinks you won&apos;t want to miss

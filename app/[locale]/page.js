@@ -25,6 +25,7 @@ export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [menuCategory, setMenuCategory] = useState('All Tea');
+  const [menuCategoryKey, setMenuCategoryKey] = useState(0);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -49,7 +50,8 @@ export default function Home() {
 
   const handleTakeMeThere = () => {
     // Set menu category to Specialties
-    setMenuCategory('Special Drinks');
+    setMenuCategory('Specials');
+    setMenuCategoryKey(prev => prev + 1);
 
     // Scroll to menu section
     const menuSection = document.getElementById('menu');
@@ -162,7 +164,7 @@ export default function Home() {
       <Trust />
 
       {/* Menu Section */}
-      <Menu initialCategory={menuCategory} />
+      <Menu initialCategory={menuCategory} categoryKey={menuCategoryKey} />
       
       <AboutUs />
       <Reviews />

@@ -124,8 +124,13 @@ export default function Cart({ isOpen, onClose, cartItems, setCartItems }) {
                 <div className="flex-grow space-y-1">
                   <h3 className="text-xl font-medium">{item.name}</h3>
 
-                  <details className="text-sm">
-                    <summary className="cursor-pointer font-medium">Details</summary>
+                  <details className="group text-sm">
+                    <summary className="cursor-pointer font-medium list-none flex items-center gap-1 [&::-webkit-details-marker]:hidden">
+                      Details
+                      <svg className="w-4 h-4 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
                     <div className="mt-2 flex flex-col gap-1">
                       <div>
                         <strong>Size:</strong> {item.size.name}
